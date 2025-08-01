@@ -15,6 +15,184 @@ describe('Express.js API Tests', () => {
     });
   });
 
+  describe('GET /incident/p2/list', () => {
+    const incidentFilePath = path.join(__dirname, '../BackEnd/incident.json');
+    const backupFilePath = path.join(__dirname, '../BackEnd/incident_backup.json');
+
+    before(() => {
+      if (fs.existsSync(incidentFilePath)) {
+        fs.renameSync(incidentFilePath, backupFilePath);
+      }
+    });
+
+    after(() => {
+      if (fs.existsSync(backupFilePath)) {
+        fs.renameSync(backupFilePath, incidentFilePath);
+      }
+    });
+
+    it('should respond with filtered priority 2 incidents list', (done) => {
+      const sampleData = {
+        records: [
+          {
+            number: 'INC001',
+            description: 'Incident 1',
+            priority: '2',
+            sys_created_on: '2023-01-01',
+            sys_created_by: 'user1'
+          },
+          {
+            number: 'INC002',
+            description: 'Incident 2',
+            priority: '1',
+            sys_created_on: '2023-01-02',
+            sys_created_by: 'user2'
+          },
+          {
+            number: 'INC003',
+            description: 'Incident 3',
+            priority: '2',
+            sys_created_on: '2023-01-03',
+            sys_created_by: 'user3'
+          }
+        ]
+      };
+      fs.writeFileSync(incidentFilePath, JSON.stringify(sampleData));
+
+      request(app)
+        .get('/incident/p2/list')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect((res) => {
+          if (!Array.isArray(res.body)) throw new Error('Response is not an array');
+          if (res.body.length !== 2) throw new Error('Incorrect number of priority 2 incidents');
+          res.body.forEach(incident => {
+            if (!incident.incident_no || !incident.description || !incident.created_on || !incident.created_by) {
+              throw new Error('Missing fields in incident');
+            }
+          });
+        })
+        .end(done);
+    });
+
+    it('should respond with 500 error when incident.json is missing', (done) => {
+      if (fs.existsSync(incidentFilePath)) {
+        fs.unlinkSync(incidentFilePath);
+      }
+
+      request(app)
+        .get('/incident/p2/list')
+        .expect(500)
+        .expect('Content-Type', /json/)
+        .expect((res) => {
+          if (!res.body.error) throw new Error('Error message missing');
+        })
+        .end(done);
+    });
+
+    it('should respond with 500 error when incident.json is invalid JSON', (done) => {
+      fs.writeFileSync(incidentFilePath, 'invalid json');
+
+      request(app)
+        .get('/incident/p2/list')
+        .expect(500)
+        .expect('Content-Type', /json/)
+        .expect((res) => {
+          if (!res.body.error) throw new Error('Error message missing');
+        })
+        .end(done);
+    });
+  });
+
+  describe('GET /incident/p1/list', () => {
+    const incidentFilePath = path.join(__dirname, '../BackEnd/incident.json');
+    const backupFilePath = path.join(__dirname, '../BackEnd/incident_backup.json');
+
+    before(() => {
+      if (fs.existsSync(incidentFilePath)) {
+        fs.renameSync(incidentFilePath, backupFilePath);
+      }
+    });
+
+    after(() => {
+      if (fs.existsSync(backupFilePath)) {
+        fs.renameSync(backupFilePath, incidentFilePath);
+      }
+    });
+
+    it('should respond with filtered priority 1 incidents list', (done) => {
+      const sampleData = {
+        records: [
+          {
+            number: 'INC001',
+            description: 'Incident 1',
+            priority: '1',
+            sys_created_on: '2023-01-01',
+            sys_created_by: 'user1'
+          },
+          {
+            number: 'INC002',
+            description: 'Incident 2',
+            priority: '2',
+            sys_created_on: '2023-01-02',
+            sys_created_by: 'user2'
+          },
+          {
+            number: 'INC003',
+            description: 'Incident 3',
+            priority: '1',
+            sys_created_on: '2023-01-03',
+            sys_created_by: 'user3'
+          }
+        ]
+      };
+      fs.writeFileSync(incidentFilePath, JSON.stringify(sampleData));
+
+      request(app)
+        .get('/incident/p1/list')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect((res) => {
+          if (!Array.isArray(res.body)) throw new Error('Response is not an array');
+          if (res.body.length !== 2) throw new Error('Incorrect number of priority 1 incidents');
+          res.body.forEach(incident => {
+            if (!incident.incident_no || !incident.description || !incident.created_on || !incident.created_by) {
+              throw new Error('Missing fields in incident');
+            }
+          });
+        })
+        .end(done);
+    });
+
+    it('should respond with 500 error when incident.json is missing', (done) => {
+      if (fs.existsSync(incidentFilePath)) {
+        fs.unlinkSync(incidentFilePath);
+      }
+
+      request(app)
+        .get('/incident/p1/list')
+        .expect(500)
+        .expect('Content-Type', /json/)
+        .expect((res) => {
+          if (!res.body.error) throw new Error('Error message missing');
+        })
+        .end(done);
+    });
+
+    it('should respond with 500 error when incident.json is invalid JSON', (done) => {
+      fs.writeFileSync(incidentFilePath, 'invalid json');
+
+      request(app)
+        .get('/incident/p1/list')
+        .expect(500)
+        .expect('Content-Type', /json/)
+        .expect((res) => {
+          if (!res.body.error) throw new Error('Error message missing');
+        })
+        .end(done);
+    });
+  });
+
   describe('GET /incidents', () => {
     const incidentFilePath = path.join(__dirname, '../BackEnd/incident.json');
     const backupFilePath = path.join(__dirname, '../BackEnd/incident_backup.json');
@@ -241,7 +419,7 @@ describe('GET /incident/p1', () => {
             const logLines = logContent.trim().split('\n');
             if (logLines.length === 0) throw new Error('No log entries found');
             const logEntry = logLines[0];
-            const logFormat = /^date-\{\d{2}:\d{2}:\d{2}\} - .* - GET$/;
+            const logFormat = /^date-\{\d{2}:\d{2}:\d{2}\} - .* - GET - \/$/;
             if (!logFormat.test(logEntry)) {
               throw new Error(`Log entry does not match format: ${logEntry}`);
             }

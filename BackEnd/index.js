@@ -85,4 +85,21 @@ app.get('/incident/p2/list', (req, res) => {
   });
 });
 
+app.get('/incident/p1/list', (req, res) => {
+  readIncidents((err, records) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read or parse incidents data' });
+    }
+    const p1IncidentsList = records
+      .filter(incident => incident.priority === '1')
+      .map(incident => ({
+        'incident_no': incident.number,
+        'description': incident.description,
+        'created_on': incident.sys_created_on,
+        'created_by': incident.sys_created_by
+      }));
+    res.json(p1IncidentsList);
+  });
+});
+
 module.exports = app;
