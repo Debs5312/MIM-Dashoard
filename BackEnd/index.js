@@ -22,20 +22,49 @@ app.get('/', (req, res) => {
   res.send('hello world');
 });
 
-app.get('/incidents', (req, res) => {
+const readIncidents = (callback) => {
   const filePath = path.join(__dirname, 'incident.json');
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading incident.json:', err);
-      return res.status(500).json({ error: 'Failed to read incidents data' });
+      return callback(err);
     }
     try {
       const incidents = JSON.parse(data);
-      res.json(incidents.records);
+      callback(null, incidents.records);
     } catch (parseErr) {
       console.error('Error parsing incident.json:', parseErr);
-      res.status(500).json({ error: 'Failed to parse incidents data' });
+      callback(parseErr);
     }
+  });
+};
+
+app.get('/incidents', (req, res) => {
+  readIncidents((err, records) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read or parse incidents data' });
+    }
+    res.json(records);
+  });
+});
+
+app.get('/incident/p1', (req, res) => {
+  readIncidents((err, records) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read or parse incidents data' });
+    }
+    const p1Incidents = records.filter(incident => incident.priority === '1');
+    res.json(p1Incidents);
+  });
+});
+
+app.get('/incident/p2', (req, res) => {
+  readIncidents((err, records) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read or parse incidents data' });
+    }
+    const p2Incidents = records.filter(incident => incident.priority === '2');
+    res.json(p2Incidents);
   });
 });
 
