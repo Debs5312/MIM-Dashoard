@@ -1,0 +1,13 @@
+{
+  "name": "express-app-tests",
+  "version": "1.0.0",
+  "description": "Tests for basic Express.js app",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3",
+    "express": "^4.18.2"
+  }
+}
