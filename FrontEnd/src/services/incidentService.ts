@@ -12,38 +12,6 @@ const apiClient = axios.create({
 });
 
 export const incidentService = {
-  // Fetch all incidents
-  getAllIncidents: async (): Promise<Incident[]> => {
-    try {
-      const response = await apiClient.get<IncidentResponse>('/');
-      return response.data.records || [];
-    } catch (error) {
-      console.error('Error fetching all incidents:', error);
-      throw error;
-    }
-  },
-
-  // Fetch P1 incidents
-  getP1Incidents: async (): Promise<Incident[]> => {
-    try {
-      const response = await apiClient.get<IncidentResponse>('/p1');
-      return response.data.records || [];
-    } catch (error) {
-      console.error('Error fetching P1 incidents:', error);
-      throw error;
-    }
-  },
-
-  // Fetch P2 incidents
-  getP2Incidents: async (): Promise<Incident[]> => {
-    try {
-      const response = await apiClient.get<IncidentResponse>('/p2');
-      return response.data.records || [];
-    } catch (error) {
-      console.error('Error fetching P2 incidents:', error);
-      throw error;
-    }
-  },
 
   // Fetch P1 incidents list
   getP1IncidentsList: async (): Promise<Incident[]> => {

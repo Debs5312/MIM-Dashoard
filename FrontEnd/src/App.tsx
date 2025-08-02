@@ -1,77 +1,109 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import './App.css';
-import { incidentService } from './services/incidentService';
-import type { Incident } from './models/incidentModel';
+import { incidentStore } from './stores/incidentStore';
 
-function App() {
-  const [p1Incidents, setP1Incidents] = useState<Incident[]>([]);
-  const [p2Incidents, setP2Incidents] = useState<Incident[]>([]);
-  const [allIncidents, setAllIncidents] = useState<Incident[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
+const App = observer(() => {
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        // Fetch all incidents
-        const allData = await incidentService.getAllIncidents();
-        setAllIncidents(allData);
-        
-        // Fetch P1 incidents
-        const p1Data = await incidentService.getP1Incidents();
-        setP1Incidents(p1Data);
-        
-        // Fetch P2 incidents
-        const p2Data = await incidentService.getP2Incidents();
-        setP2Incidents(p2Data);
-        
-        setError(null);
-      } catch (err) {
-        setError('Failed to fetch incidents. Please try again later.');
-        console.error('Error fetching data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    incidentStore.fetchData();
   }, []);
 
-  if (loading) {
-    return <div className="header"><h1>Loading...</h1></div>;
-  }
+  const { 
+    p1Incidents, 
+    p2Incidents, 
+    allIncidents, 
+    loading, 
+    p1Loading, 
+    p2Loading, 
+    error, 
+    p1Error, 
+    p2Error 
+  } = incidentStore;
 
-  if (error) {
-    return <div className="header"><h1>Error: {error}</h1></div>;
+  const handleRefresh = async () => {
+    await incidentStore.refreshData();
+  };
+
+  if (loading && p1Incidents.length === 0 && p2Incidents.length === 0) {
+    return (
+      <div className="header">
+        <h1>MIM DASHBOARD</h1>
+        <div className="container">
+          <div className="block">
+            <h2>Loading...</h2>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="header">
       <h1>MIM DASHBOARD</h1>
+      <button onClick={handleRefresh} disabled={p1Loading || p2Loading}>
+        {p1Loading || p2Loading ? 'Refreshing...' : 'Refresh Data'}
+      </button>
+      {error && <div className="error"><h3>Error: {error}</h3></div>}
+      
       <div className="container">
         <div className="block">
           <h2>P1 Incidents</h2>
-          {p1Incidents.map((incident, index) => (
-            <p key={index}>{incident.title || `P1 Incident ${index + 1}`}</p>
-          ))}
+          {p1Loading ? (
+            <p>Loading P1 incidents...</p>
+          ) : p1Error ? (
+            <p className="error">{p1Error}</p>
+          ) : p1Incidents.length > 0 ? (
+            p1Incidents.map((incident) => (
+              <div key={incident.incident_no} className="incident-item">
+                <h3>{incident.incident_no}</h3>
+                <p><strong>Description:</strong> {incident.description}</p>
+                <p><strong>Created:</strong> {incident.created_on}</p>
+                <p><strong>By:</strong> {incident.created_by}</p>
+              </div>
+            ))
+          ) : (
+            <p>No P1 incidents found</p>
+          )}
         </div>
+        
         <div className="central-block">
-          <h2>All MIM Incidents</h2>
-          <p>Placeholder for all MIM incidents with scroll bar</p>
-          {allIncidents.map((incident, i) => (
-            <p key={i}>{incident.title || `Incident ${i + 1}`}</p>
-          ))}
+          <h2>All MIM Incidents ({allIncidents.length})</h2>
+          {allIncidents.length > 0 ? (
+            allIncidents.map((incident) => (
+              <div key={incident.incident_no} className="incident-item">
+                <h3>{incident.incident_no}</h3>
+                <p><strong>Description:</strong> {incident.description}</p>
+                <p><strong>Created:</strong> {incident.created_on}</p>
+                <p><strong>By:</strong> {incident.created_by}</p>
+              </div>
+            ))
+          ) : (
+            <p>No incidents found</p>
+          )}
         </div>
+        
         <div className="block">
           <h2>P2 Incidents</h2>
-          {p2Incidents.map((incident, index) => (
-            <p key={index}>{incident.title || `P2 Incident ${index + 1}`}</p>
-          ))}
+          {p2Loading ? (
+            <p>Loading P2 incidents...</p>
+          ) : p2Error ? (
+            <p className="error">{p2Error}</p>
+          ) : p2Incidents.length > 0 ? (
+            p2Incidents.map((incident) => (
+              <div key={incident.incident_no} className="incident-item">
+                <h3>{incident.incident_no}</h3>
+                <p><strong>Description:</strong> {incident.description}</p>
+                <p><strong>Created:</strong> {incident.created_on}</p>
+                <p><strong>By:</strong> {incident.created_by}</p>
+              </div>
+            ))
+          ) : (
+            <p>No P2 incidents found</p>
+          )}
         </div>
       </div>
     </div>
   );
-}
+});
 
 export default App;
