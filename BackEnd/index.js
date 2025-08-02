@@ -1,105 +1,27 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const app = express();
 
-// Logging middleware to log each API call to api.log file
-app.use((req, res, next) => {
-  const now = new Date();
-  const timeString = now.toTimeString().split(' ')[0]; // hh:mm:ss
-  const clientIp = req.ip || req.connection.remoteAddress || 'unknown';
-  const logEntry = `date-{${timeString}} - ${clientIp} - ${req.method} - ${req.originalUrl}\n`;
-  const logFilePath = path.join(__dirname, 'api.log');
-  fs.appendFile(logFilePath, logEntry, (err) => {
-    if (err) {
-      console.error('Failed to write to log file:', err);
-    }
-  });
-  next();
-});
+const {
+  getAllIncidents,
+  getIncidentsByPriority,
+  getIncidentsListByPriority,
+} = require('./controllers/incidentController');
+
+const loggerMiddleware = require('./middleware/logger');
+app.use(loggerMiddleware);
 
 app.get('/', (req, res) => {
   res.send('hello world');
 });
 
-const readIncidents = (callback) => {
-  const filePath = path.join(__dirname, 'incident.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading incident.json:', err);
-      return callback(err);
-    }
-    try {
-      const incidents = JSON.parse(data);
-      callback(null, incidents.records);
-    } catch (parseErr) {
-      console.error('Error parsing incident.json:', parseErr);
-      callback(parseErr);
-    }
-  });
-};
+app.get('/incidents', getAllIncidents);
 
-app.get('/incidents', (req, res) => {
-  readIncidents((err, records) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to read or parse incidents data' });
-    }
-    res.json(records);
-  });
-});
+app.get('/incident/p1', getIncidentsByPriority('1'));
 
-app.get('/incident/p1', (req, res) => {
-  readIncidents((err, records) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to read or parse incidents data' });
-    }
-    const p1Incidents = records.filter(incident => incident.priority === '1');
-    res.json(p1Incidents);
-  });
-});
+app.get('/incident/p2', getIncidentsByPriority('2'));
 
-app.get('/incident/p2', (req, res) => {
-  readIncidents((err, records) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to read or parse incidents data' });
-    }
-    const p2Incidents = records.filter(incident => incident.priority === '2');
-    res.json(p2Incidents);
-  });
-});
+app.get('/incident/p2/list', getIncidentsListByPriority('2'));
 
-app.get('/incident/p2/list', (req, res) => {
-  readIncidents((err, records) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to read or parse incidents data' });
-    }
-    const p2IncidentsList = records
-      .filter(incident => incident.priority === '2')
-      .map(incident => ({
-        'incident_no': incident.number,
-        'description': incident.description,
-        'created_on': incident.sys_created_on,
-        'created_by': incident.sys_created_by
-      }));
-    res.json(p2IncidentsList);
-  });
-});
-
-app.get('/incident/p1/list', (req, res) => {
-  readIncidents((err, records) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to read or parse incidents data' });
-    }
-    const p1IncidentsList = records
-      .filter(incident => incident.priority === '1')
-      .map(incident => ({
-        'incident_no': incident.number,
-        'description': incident.description,
-        'created_on': incident.sys_created_on,
-        'created_by': incident.sys_created_by
-      }));
-    res.json(p1IncidentsList);
-  });
-});
+app.get('/incident/p1/list', getIncidentsListByPriority('1'));
 
 module.exports = app;
