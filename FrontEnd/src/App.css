@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  height: 90vh;
+  padding: 10px;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.block {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.central-block {
+  flex: 2;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.header {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .block, .central-block {
+    max-height: none;
+    overflow-y: visible;
+    flex: none;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
