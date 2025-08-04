@@ -15,7 +15,7 @@ export const incidentService = {
   getP1IncidentsList: async () => {
     try {
       const response = await apiClient.get('/p1/list');
-      return response.data.records || [];
+      return response.data; // Changed from response.data.records to response.data
     } catch (error) {
       console.error('Error fetching P1 incidents list:', error);
       throw error;
@@ -26,7 +26,7 @@ export const incidentService = {
   getP2IncidentsList: async () => {
     try {
       const response = await apiClient.get('/p2/list');
-      return response.data.records || [];
+      return response.data; // Changed from response.data.records to response.data
     } catch (error) {
       console.error('Error fetching P2 incidents list:', error);
       throw error;
