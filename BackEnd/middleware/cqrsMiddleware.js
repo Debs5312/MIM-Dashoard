@@ -15,7 +15,7 @@ const cqrsMiddleware = (req, res, next) => {
   const logEntry = `[${timeString}] ${operationType} ${req.method} ${req.originalUrl}\n`;
   
   // Write to CQRS log file
-  const logFilePath = path.join(__dirname, '..', 'cqrs.log');
+  const logFilePath = path.join(__dirname, '..', 'log', 'cqrs.log');
   fs.appendFile(logFilePath, logEntry, (err) => {
     if (err) {
       console.error('Failed to write to CQRS log file:', err);
