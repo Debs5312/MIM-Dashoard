@@ -9,12 +9,12 @@ const {
 
 router.get('/', getAllIncidents);
 
-router.get('/p1', (req, res) => getIncidentsByPriority('1')(req, res));
+router.get('/p1', (req, res) => getIncidentsByPriority('P1')(req, res));
 
-router.get('/p2', (req, res) => getIncidentsByPriority('2')(req, res));
+router.get('/p2', (req, res) => getIncidentsByPriority('P2')(req, res));
 
-router.get('/p2/list', (req, res) => getIncidentsListByPriority('2')(req, res));
+router.get('/p2/list', (req, res) => getIncidentsListByPriority('P2')(req, res));
 
-router.get('/p1/list', (req, res) => getIncidentsListByPriority('1')(req, res));
+router.get('/p1/list', (req, res) => getIncidentsListByPriority('P1')(req, res));
 
 module.exports = router;

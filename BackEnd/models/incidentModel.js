@@ -11,7 +11,7 @@ const readIncidents = (callback) => {
     }
     try {
       const incidents = JSON.parse(data);
-      callback(null, incidents.records);
+      callback(null, incidents);
     } catch (parseErr) {
       console.error('Error parsing incident.json:', parseErr);
       callback(parseErr);

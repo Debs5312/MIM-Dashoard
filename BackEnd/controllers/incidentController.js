@@ -30,10 +30,10 @@ const getIncidentsListByPriority = (priority) => {
       const filteredList = records
         .filter(incident => incident.priority === priority)
         .map(incident => ({
-          'incident_no': incident.number,
+          'incident_no': incident.incident_no,
           'description': incident.description,
-          'created_on': incident.sys_created_on,
-          'created_by': incident.sys_created_by
+          'created_on': incident.created_on,
+          'created_by': incident.created_by
         }));
       res.json(filteredList);
     });
