@@ -1,0 +1,51 @@
+.incident-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #fafafa;
+  transition: box-shadow 0.3s ease;
+}
+
+.incident-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.incident-card-summary h3 {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.incident-card-summary p {
+  margin: 5px 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.incident-card-summary button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.incident-card-summary button:hover {
+  background-color: #2980b9;
+}
+
+.incident-card-details {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.incident-card-details p {
+  margin: 0;
+  color: #333;
+  line-height: 1.5;
+}

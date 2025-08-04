@@ -1,17 +1,16 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx';
 import { incidentService } from '../services/incidentService';
-import type { Incident } from '../models/incidentModel';
 
 class IncidentStore {
-  p1Incidents: Incident[] = [];
-  p2Incidents: Incident[] = [];
-  allIncidents: Incident[] = [];
-  loading: boolean = true;
-  p1Loading: boolean = false;
-  p2Loading: boolean = false;
-  error: string | null = null;
-  p1Error: string | null = null;
-  p2Error: string | null = null;
+  p1Incidents = [];
+  p2Incidents = [];
+  allIncidents = [];
+  loading = true;
+  p1Loading = false;
+  p2Loading = false;
+  error = null;
+  p1Error = null;
+  p2Error = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -21,7 +20,7 @@ class IncidentStore {
       () => [this.p1Incidents, this.p2Incidents],
       ([p1Incidents, p2Incidents]) => {
         runInAction(() => {
-            this.allIncidents = [...p1Incidents as Incident[], ...p2Incidents as Incident[]];
+            this.allIncidents = [...p1Incidents, ...p2Incidents];
         });
       }
     );

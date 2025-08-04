@@ -1,5 +1,4 @@
 import axios from 'axios';
-import type { Incident, IncidentResponse } from '../models/incidentModel';
 
 const API_BASE_URL = 'http://localhost:3000/incident';
 
@@ -12,11 +11,10 @@ const apiClient = axios.create({
 });
 
 export const incidentService = {
-
   // Fetch P1 incidents list
-  getP1IncidentsList: async (): Promise<Incident[]> => {
+  getP1IncidentsList: async () => {
     try {
-      const response = await apiClient.get<IncidentResponse>('/p1/list');
+      const response = await apiClient.get('/p1/list');
       return response.data.records || [];
     } catch (error) {
       console.error('Error fetching P1 incidents list:', error);
@@ -25,9 +23,9 @@ export const incidentService = {
   },
 
   // Fetch P2 incidents list
-  getP2IncidentsList: async (): Promise<Incident[]> => {
+  getP2IncidentsList: async () => {
     try {
-      const response = await apiClient.get<IncidentResponse>('/p2/list');
+      const response = await apiClient.get('/p2/list');
       return response.data.records || [];
     } catch (error) {
       console.error('Error fetching P2 incidents list:', error);

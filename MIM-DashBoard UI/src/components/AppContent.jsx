@@ -1,24 +1,24 @@
-import { useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
+import React, { useEffect } from 'react';
+import IncidentCard from './IncidentCard';
 import { incidentStore } from '../stores/incidentStore';
-import { IncidentCard } from '../components/IncidentCard';
+import { observer } from 'mobx-react-lite';
 import './AppContent.css';
 
-export const AppContent = observer(() => {
+const AppContent = observer(() => {
   useEffect(() => {
     incidentStore.fetchData();
   }, []);
 
-  const { 
-    p1Incidents, 
-    p2Incidents, 
-    allIncidents, 
-    loading, 
-    p1Loading, 
-    p2Loading, 
-    error, 
-    p1Error, 
-    p2Error 
+  const {
+    p1Incidents,
+    p2Incidents,
+    allIncidents,
+    loading,
+    p1Loading,
+    p2Loading,
+    error,
+    p1Error,
+    p2Error
   } = incidentStore;
 
   const handleRefresh = async () => {
@@ -54,7 +54,7 @@ export const AppContent = observer(() => {
           ) : p1Error ? (
             <p className="error">{p1Error}</p>
           ) : p1Incidents.length > 0 ? (
-            p1Incidents.map((incident) => (
+            p1Incidents.map(incident => (
               <IncidentCard key={incident.incident_no} incident={incident} />
             ))
           ) : (
@@ -65,7 +65,7 @@ export const AppContent = observer(() => {
         <div className="central-block">
           <h2>All MIM Incidents ({allIncidents.length})</h2>
           {allIncidents.length > 0 ? (
-            allIncidents.map((incident) => (
+            allIncidents.map(incident => (
               <IncidentCard key={incident.incident_no} incident={incident} />
             ))
           ) : (
@@ -80,7 +80,7 @@ export const AppContent = observer(() => {
           ) : p2Error ? (
             <p className="error">{p2Error}</p>
           ) : p2Incidents.length > 0 ? (
-            p2Incidents.map((incident) => (
+            p2Incidents.map(incident => (
               <IncidentCard key={incident.incident_no} incident={incident} />
             ))
           ) : (
@@ -91,3 +91,5 @@ export const AppContent = observer(() => {
     </div>
   );
 });
+
+export default AppContent;

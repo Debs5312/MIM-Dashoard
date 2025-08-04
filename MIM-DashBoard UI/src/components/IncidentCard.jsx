@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import type { Incident } from '../models/incidentModel';
 import './IncidentCard.css';
 
-interface IncidentCardProps {
-  incident: Incident;
-}
-
-export const IncidentCard: React.FC<IncidentCardProps> = ({ incident }) => {
+const IncidentCard = ({ incident }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetails = () => {
@@ -32,3 +27,5 @@ export const IncidentCard: React.FC<IncidentCardProps> = ({ incident }) => {
     </div>
   );
 };
+
+export default IncidentCard;
