@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const incidentFilePath = path.join(__dirname, '..', 'incident.json');
+const incidentFilePath = path.join(__dirname, '..', 'Data', 'incident.json');
 
 const readIncidents = (callback) => {
   fs.readFile(incidentFilePath, 'utf8', (err, data) => {
