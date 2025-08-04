@@ -193,7 +193,7 @@ describe('Express.js API Tests', () => {
     });
   });
 
-  describe('GET /incidents', () => {
+  describe('GET /incident', () => {
     const incidentFilePath = path.join(__dirname, '../BackEnd/incident.json');
     const backupFilePath = path.join(__dirname, '../BackEnd/incident_backup.json');
 
@@ -221,7 +221,7 @@ describe('Express.js API Tests', () => {
       fs.writeFileSync(incidentFilePath, JSON.stringify(sampleData));
 
       request(app)
-        .get('/incidents')
+        .get('/incident')
         .expect(200)
         .expect('Content-Type', /json/)
         .expect((res) => {
@@ -238,7 +238,7 @@ describe('Express.js API Tests', () => {
       }
 
       request(app)
-        .get('/incidents')
+        .get('/incident')
         .expect(500)
         .expect('Content-Type', /json/)
         .expect((res) => {
@@ -251,7 +251,7 @@ describe('Express.js API Tests', () => {
       fs.writeFileSync(incidentFilePath, 'invalid json');
 
       request(app)
-        .get('/incidents')
+        .get('/incident')
         .expect(500)
         .expect('Content-Type', /json/)
         .expect((res) => {
@@ -419,7 +419,7 @@ describe('GET /incident/p1', () => {
             const logLines = logContent.trim().split('\n');
             if (logLines.length === 0) throw new Error('No log entries found');
             const logEntry = logLines[0];
-            const logFormat = /^date-\{\d{2}:\d{2}:\d{2}\} - .* - GET - \/$/;
+            const logFormat = /^\{\d{2}:\d{2}:\d{4}\} - \d{2}:\d{2}:\d{2} - .* - GET - \/$/;
             if (!logFormat.test(logEntry)) {
               throw new Error(`Log entry does not match format: ${logEntry}`);
             }
