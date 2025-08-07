@@ -1,0 +1,112 @@
+[
+  {
+    "incident_no": "LARGE-001",
+    "description": "Massive distributed denial of service attack targeting all public-facing services",
+    "priority": "P1",
+    "created_on": "2025-08-06 06:00:00",
+    "created_by": "Security Operations Center",
+    "status": "Open",
+    "impact": "Global service disruption affecting 2.5 million users across 15 countries. Revenue impact exceeding $2 million per hour. All customer services experiencing severe degradation or complete unavailability.",
+    "affected_users": "2.5 million active users globally",
+    "affected_system": "Downstream: All Web Services, Mobile Applications, API Gateway, CDN Network, DNS Services, Load Balancers. Upstream: Primary Data Centers, Cloud Infrastructure, Network Providers, Security Appliances, DDoS Mitigation Services"
+  },
+  {
+    "incident_no": "LARGE-002",
+    "description": "Core data center power failure with backup generator malfunction",
+    "priority": "P1",
+    "created_on": "2025-08-06 06:15:30",
+    "created_by": "Data Center Operations",
+    "status": "In Progress",
+    "impact": "Complete infrastructure outage in primary data center. 500+ servers offline. Critical business applications down. Estimated recovery time 4-6 hours. Revenue loss projected at $1.5 million.",
+    "affected_users": "All 1.8 million customers",
+    "affected_system": "Downstream: E-commerce Platform, Customer Portal, Mobile Backend, Analytics Systems, Reporting Tools. Upstream: Power Grid, UPS Systems, Backup Generators, Cooling Systems, Network Infrastructure"
+  },
+  {
+    "incident_no": "LARGE-003",
+    "description": "Enterprise-wide ransomware attack encrypting critical business data",
+    "priority": "P1",
+    "created_on": "2025-08-06 06:30:45",
+    "created_by": "Cybersecurity Incident Response Team",
+    "status": "Open",
+    "impact": "All business-critical data encrypted across 200+ servers. Customer data, financial records, and operational systems compromised. Complete business halt. Regulatory notifications required. Potential data breach affecting 3 million customer records.",
+    "affected_users": "All employees and 3 million customers",
+    "affected_system": "Downstream: All Business Applications, Customer Database, Financial Systems, HR Systems, Email Services. Upstream: File Servers, Database Servers, Application Servers, Backup Systems, Security Infrastructure"
+  },
+  {
+    "incident_no": "LARGE-004",
+    "description": "Cloud provider regional outage affecting all hosted services",
+    "priority": "P1",
+    "created_on": "2025-08-06 06:45:12",
+    "created_by": "Cloud Operations Team",
+    "status": "Open",
+    "impact": "Complete service unavailability in US-East-1 region. 800+ virtual machines offline. Multi-region failover initiated but experiencing issues. Customer impact across North and South American markets.",
+    "affected_users": "1.2 million users in Americas",
+    "affected_system": "Downstream: All Cloud Services, Load Balancers, Auto-scaling Groups, Database Services, Storage Services. Upstream: AWS US-East-1, Network Connectivity, DNS Resolution, CDN Edge Locations"
+  },
+  {
+    "incident_no": "LARGE-005",
+    "description": "Global DNS resolution failure preventing domain name access",
+    "priority": "P1",
+    "created_on": "2025-08-06 07:00:00",
+    "created_by": "Network Operations Center",
+    "status": "In Progress",
+    "impact": "All company domains inaccessible worldwide. Email delivery failing. Mobile apps unable to connect. Complete digital presence offline. Brand reputation at severe risk.",
+    "affected_users": "All 4 million global users",
+    "affected_system": "Downstream: All Web Properties, Email Services, Mobile Applications, API Endpoints. Upstream: DNS Providers, Domain Registrars, Network Infrastructure, CDN Services"
+  },
+  {
+    "incident_no": "LARGE-006",
+    "description": "Mass data corruption in primary customer database affecting 5 million records",
+    "priority": "P1",
+    "created_on": "2025-08-06 07:15:30",
+    "created_by": "Database Administration Team",
+    "status": "Open",
+    "impact": "Customer profiles, order history, and payment information corrupted. Data integrity compromised across all customer-facing systems. Potential permanent data loss. Recovery from backups estimated 8-12 hours.",
+    "affected_users": "All 5 million registered customers",
+    "affected_system": "Downstream: Customer Portal, E-commerce Platform, CRM System, Marketing Automation, Analytics. Upstream: Primary Database Cluster, Replication Services, Backup Systems, Data Validation Services"
+  },
+  {
+    "incident_no": "LARGE-007",
+    "description": "Supply chain management system completely offline during peak ordering period",
+    "priority": "P2",
+    "created_on": "2025-08-06 07:30:45",
+    "created_by": "Supply Chain Operations",
+    "status": "Open",
+    "impact": "Unable to process purchase orders, track inventory, or manage supplier relationships. Black Friday preparation severely impacted. Potential stockouts across 500+ product lines.",
+    "affected_users": "200 procurement staff, 1000+ suppliers, 50,000+ customers",
+    "affected_system": "Downstream: Procurement Portal, Inventory Management, Supplier Communications, Order Processing. Upstream: ERP System, Database Services, Integration Platform, External Supplier APIs"
+  },
+  {
+    "incident_no": "LARGE-008",
+    "description": "Customer service phone system experiencing complete outage during high volume period",
+    "priority": "P2",
+    "created_on": "2025-08-06 07:45:12",
+    "created_by": "Telecommunications Team",
+    "status": "In Progress",
+    "impact": "All customer service phone lines down. 500+ customer service representatives unable to take calls. Customer complaints escalating on social media. Estimated 10,000+ calls unable to reach support.",
+    "affected_users": "All customers requiring phone support, 500+ CSRs",
+    "affected_system": "Downstream: Call Center Software, IVR Systems, Call Routing, CRM Integration. Upstream: Telecom Provider, SIP Trunking, PBX Systems, Network Infrastructure"
+  },
+  {
+    "incident_no": "LARGE-009",
+    "description": "Marketing automation platform sending duplicate emails to entire customer base",
+    "priority": "P2",
+    "created_on": "2025-08-06 08:00:00",
+    "created_by": "Marketing Operations",
+    "status": "Open",
+    "impact": "5 million customers receiving duplicate promotional emails. Unsubscribe rates spiking. Brand reputation damage. Email service provider threatening account suspension due to spam complaints.",
+    "affected_users": "All 5 million email subscribers",
+    "affected_system": "Downstream: Email Campaigns, Customer Communications, Unsubscribe Management. Upstream: Marketing Platform, Email Service Provider, Customer Database, Campaign Management"
+  },
+  {
+    "incident_no": "LARGE-010",
+    "description": "Financial reporting system generating incorrect quarterly revenue figures",
+    "priority": "P2",
+    "created_on": "2025-08-06 08:15:30",
+    "created_by": "Finance Systems Team",
+    "status": "Open",
+    "impact": "Q3 financial reports showing 15% revenue discrepancy. SEC filing deadline at risk. Audit committee emergency meeting scheduled. Potential regulatory compliance issues.",
+    "affected_users": "All finance team, executive leadership, external auditors",
+    "affected_system": "Downstream: Financial Reports, SEC Filings, Executive Dashboards, Audit Systems. Upstream: ERP System, Revenue Recognition Engine, Data Warehouse, Financial Database"
+  }
+]

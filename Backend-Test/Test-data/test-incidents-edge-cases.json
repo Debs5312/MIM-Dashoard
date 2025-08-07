@@ -1,0 +1,57 @@
+[
+  {
+    "incident_no": "EDGE-001",
+    "description": "Single character incident description",
+    "priority": "P1",
+    "created_on": "2025-08-06 00:00:00",
+    "created_by": "A",
+    "status": "Open",
+    "impact": "Minimal impact description",
+    "affected_users": "1",
+    "affected_system": "Single system"
+  },
+  {
+    "incident_no": "EDGE-002",
+    "description": "Very long incident description that contains multiple sentences and technical details about the system failure including error codes, stack traces, and detailed reproduction steps that would typically be found in a comprehensive incident report with maximum character limits being tested to ensure the system can handle edge cases properly",
+    "priority": "P2",
+    "created_on": "2025-08-06 23:59:59",
+    "created_by": "System Administrator With Very Long Name",
+    "status": "Closed",
+    "impact": "Extremely detailed impact analysis covering all aspects of the business including financial implications, customer satisfaction metrics, regulatory compliance concerns, operational disruptions, technical debt accumulation, and long-term strategic consequences that would require extensive documentation and stakeholder communication",
+    "affected_users": "999999999",
+    "affected_system": "Comprehensive list of all interconnected systems including primary databases, backup systems, load balancers, API gateways, message queues, caching layers, monitoring tools, logging infrastructure, security services, and third-party integrations spanning multiple cloud providers and geographic regions"
+  },
+  {
+    "incident_no": "EDGE-003",
+    "description": "Unicode special characters: 你好世界 🌍 مرحبا بالعالم",
+    "priority": "P1",
+    "created_on": "2025-12-31 12:00:00",
+    "created_by": "用户@company.com",
+    "status": "In Progress",
+    "impact": "Unicode impact: 影响范围很广 🚨 تأثير كبير",
+    "affected_users": "全球用户 5000+",
+    "affected_system": "系统: 数据库+API 🌐 النظام: قاعدة البيانات+واجهة برمجة التطبيقات"
+  },
+  {
+    "incident_no": "EDGE-004",
+    "description": "Null values and empty strings test case",
+    "priority": "P2",
+    "created_on": "2025-08-06 09:00:00",
+    "created_by": "",
+    "status": "",
+    "impact": "",
+    "affected_users": "",
+    "affected_system": ""
+  },
+  {
+    "incident_no": "EDGE-005",
+    "description": "Special characters and SQL injection attempt: '; DROP TABLE incidents; --",
+    "priority": "P1",
+    "created_on": "2025-08-06 15:30:45",
+    "created_by": "admin'; --",
+    "status": "Open",
+    "impact": "Attempt to breach security via input fields with special characters like <script>alert('XSS')</script>",
+    "affected_users": "All users <script>alert('test')</script>",
+    "affected_system": "Main system <iframe src='javascript:alert(1)'></iframe>"
+  }
+]
