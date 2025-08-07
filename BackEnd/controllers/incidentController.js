@@ -27,14 +27,7 @@ const getIncidentsListByPriority = (priority) => {
       if (err) {
         return res.status(500).json({ error: 'Failed to read or parse incidents data' });
       }
-      const filteredList = records
-        .filter(incident => incident.priority === priority)
-        .map(incident => ({
-          'incident_no': incident.incident_no,
-          'description': incident.description,
-          'created_on': incident.created_on,
-          'created_by': incident.created_by
-        }));
+      const filteredList = records.filter(incident => incident.priority === priority);
       res.json(filteredList);
     });
   };
