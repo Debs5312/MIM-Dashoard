@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -19,6 +19,7 @@ import theme from '../theme';
 import IncidentCard from './IncidentCard';
 import P1IncidentCard from './P1IncidentCard';
 import P2IncidentCard from './P2IncidentCard';
+import { SearchP1Incident, SearchP2Incident, SearchAllIncident } from './searchIncident';
 import { incidentStore } from '../stores/incidentStore';
 import { observer } from 'mobx-react-lite';
 
@@ -95,12 +96,12 @@ const AppContent = observer(() => {
           <Box sx={{ display: 'flex', gap: 3, mb: 3 }}>
             {/* P1 Incidents Section */}
             <Paper elevation={3} sx={{ flex: 1, p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-                  P1 Incidents
-                </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
+                  <SearchP1Incident incidents={p1Incidents} />
+                </Box>
                 <Chip 
-                  label={p1Incidents.length} 
+                  label={`${p1Incidents.length}`} 
                   color="error" 
                   size="small"
                   sx={{ fontWeight: 'bold' }}
@@ -130,12 +131,12 @@ const AppContent = observer(() => {
 
             {/* P2 Incidents Section */}
             <Paper elevation={3} sx={{ flex: 1, p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-                  P2 Incidents
-                </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
+                  <SearchP2Incident incidents={p2Incidents} />
+                </Box>
                 <Chip 
-                  label={p2Incidents.length} 
+                  label={`${p2Incidents.length}`} 
                   color="warning" 
                   size="small"
                   sx={{ fontWeight: 'bold' }}
@@ -166,12 +167,12 @@ const AppContent = observer(() => {
 
           {/* All Incidents Section - Stacked Below */}
           <Paper elevation={3} sx={{ p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-                All MIM Incidents
-              </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
+              <Box sx={{ flex: 1, minWidth: 0 }}>
+                <SearchAllIncident incidents={allIncidents} />
+              </Box>
               <Chip 
-                label={allIncidents.length} 
+                label={`${allIncidents.length}`} 
                 color="primary" 
                 size="small"
                 sx={{ fontWeight: 'bold' }}
