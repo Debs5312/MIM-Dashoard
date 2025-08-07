@@ -175,7 +175,7 @@ export const SearchAllIncident = ({ incidents, onSearchResults }) => (
     incidents={incidents} 
     onSearchResults={onSearchResults}
     label="All MIM Incidents"
-    placeholder="Search all incidents..."
+    placeholder="Search MIM incidents..."
   />
 );
 
