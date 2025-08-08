@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -24,6 +24,10 @@ import { incidentStore } from '../stores/incidentStore';
 import { observer } from 'mobx-react-lite';
 
 const AppContent = observer(() => {
+  const p1ScrollRef = useRef(null);
+  const p2ScrollRef = useRef(null);
+  const allScrollRef = useRef(null);
+
   useEffect(() => {
     incidentStore.fetchData();
   }, []);
@@ -98,7 +102,7 @@ const AppContent = observer(() => {
             <Paper elevation={3} sx={{ flex: 1, p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
                 <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <SearchP1Incident incidents={p1Incidents} />
+                  <SearchP1Incident incidents={p1Incidents} scrollContainerRef={p1ScrollRef} />
                 </Box>
                 <Chip 
                   label={`${p1Incidents.length}`} 
@@ -115,10 +119,10 @@ const AppContent = observer(() => {
               ) : p1Error ? (
                 <Alert severity="error">{p1Error}</Alert>
               ) : p1Incidents.length > 0 ? (
-                <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }}>
+                <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }} ref={p1ScrollRef}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {p1Incidents.map(incident => (
-                      <Box key={incident.incident_no}>
+                      <Box key={incident.incident_no} data-incident-id={incident.incident_no}>
                         <P1IncidentCard incident={incident} />
                       </Box>
                     ))}
@@ -133,7 +137,7 @@ const AppContent = observer(() => {
             <Paper elevation={3} sx={{ flex: 1, p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
                 <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <SearchP2Incident incidents={p2Incidents} />
+                  <SearchP2Incident incidents={p2Incidents} scrollContainerRef={p2ScrollRef} />
                 </Box>
                 <Chip 
                   label={`${p2Incidents.length}`} 
@@ -150,10 +154,10 @@ const AppContent = observer(() => {
               ) : p2Error ? (
                 <Alert severity="error">{p2Error}</Alert>
               ) : p2Incidents.length > 0 ? (
-                <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }}>
+                <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }} ref={p2ScrollRef}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {p2Incidents.map(incident => (
-                      <Box key={incident.incident_no}>
+                      <Box key={incident.incident_no} data-incident-id={incident.incident_no}>
                         <P2IncidentCard incident={incident} />
                       </Box>
                     ))}
@@ -169,7 +173,7 @@ const AppContent = observer(() => {
           <Paper elevation={3} sx={{ p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
               <Box sx={{ flex: 1, minWidth: 0 }}>
-                <SearchAllIncident incidents={allIncidents} />
+                <SearchAllIncident incidents={allIncidents} scrollContainerRef={allScrollRef} />
               </Box>
               <Chip 
                 label={`${allIncidents.length}`} 
@@ -180,10 +184,10 @@ const AppContent = observer(() => {
             </Box>
             
             {allIncidents.length > 0 ? (
-              <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }}>
+              <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }} ref={allScrollRef}>
                 <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2 }}>
                   {allIncidents.map(incident => (
-                    <Box key={incident.incident_no}>
+                    <Box key={incident.incident_no} data-incident-id={incident.incident_no}>
                       <IncidentCard incident={incident} />
                     </Box>
                   ))}

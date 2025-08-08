@@ -102,25 +102,25 @@ const IncidentCard = ({ incident }) => {
         </Box>
 
         <Grid container spacing={2} mb={2}>
-          <Grid item xs={12} sm={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography variant="body2" color="text.secondary">
               <strong>Reporter:</strong> {incident.created_by}
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography variant="body2" color="text.secondary">
               <strong>Created:</strong> {formatDate(incident.created_on)}
             </Typography>
           </Grid>
           {incident.assigned_to && (
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Typography variant="body2" color="text.secondary">
                 <strong>Assigned:</strong> {incident.assigned_to}
               </Typography>
             </Grid>
           )}
           {incident.category && (
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Typography variant="body2" color="text.secondary">
                 <strong>Category:</strong> {incident.category}
               </Typography>
@@ -166,33 +166,33 @@ const IncidentCard = ({ incident }) => {
           </Typography>
           
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Typography variant="body2">
                 <strong>Incident Number:</strong> {incident.incident_no}
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Typography variant="body2">
                 <strong>Priority:</strong> {incident.priority || 'Not Set'}
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Typography variant="body2">
                 <strong>Status:</strong> {incident.status || 'OPEN'}
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Typography variant="body2">
                 <strong>Created By:</strong> {incident.created_by}
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Typography variant="body2">
                 <strong>Created On:</strong> {formatDate(incident.created_on)}
               </Typography>
             </Grid>
             {incident.assigned_to && (
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="body2">
                   <strong>Assigned To:</strong> {incident.assigned_to}
                 </Typography>

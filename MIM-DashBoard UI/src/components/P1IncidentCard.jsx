@@ -201,21 +201,21 @@ ACTION REQUIRED:
               Impact Assessment
             </Typography>
             <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <Typography variant="body2">
-                  <strong>Business Impact:</strong> {incident.impact || 'Critical system disruption'}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body2">
-                  <strong>Affected Users:</strong> {incident.affected_users || 'All users'}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body2">
-                  <strong>Affected Systems:</strong> {incident.affected_system || 'To be determined'}
-                </Typography>
-              </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Typography variant="body2">
+                <strong>Business Impact:</strong> {incident.impact || 'Critical system disruption'}
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Typography variant="body2">
+                <strong>Affected Users:</strong> {incident.affected_users || 'All users'}
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Typography variant="body2">
+                <strong>Affected Systems:</strong> {incident.affected_system || 'To be determined'}
+              </Typography>
+            </Grid>
             </Grid>
             <Box sx={{ mt: 1 }}>
               <Typography variant="body2" color="text.secondary">
