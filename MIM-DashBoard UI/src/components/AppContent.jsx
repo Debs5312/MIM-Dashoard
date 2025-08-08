@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   AppBar,
   Toolbar,
   Typography,
   Button,
   Container,
-  Grid,
   Paper,
   Box,
   CircularProgress,
@@ -24,9 +23,12 @@ import { incidentStore } from '../stores/incidentStore';
 import { observer } from 'mobx-react-lite';
 
 const AppContent = observer(() => {
-  const p1ScrollRef = useRef(null);
-  const p2ScrollRef = useRef(null);
-  const allScrollRef = useRef(null);
+  // DRY: Use a single state object for search terms and filtered results
+  const [search, setSearch] = useState({
+    p1: { term: '', filtered: [] },
+    p2: { term: '', filtered: [] },
+    all: { term: '', filtered: [] },
+  });
 
   useEffect(() => {
     incidentStore.fetchData();
@@ -47,6 +49,14 @@ const AppContent = observer(() => {
   const handleRefresh = async () => {
     await incidentStore.refreshData();
   };
+
+  // DRY: Generic handler for search results
+  const handleSearchResults = useCallback((type) => (filteredResults, searchTerm) => {
+    setSearch(prev => ({
+      ...prev,
+      [type]: { term: searchTerm, filtered: filteredResults }
+    }));
+  }, []);
 
   if (loading && p1Incidents.length === 0 && p2Incidents.length === 0) {
     return (
@@ -102,7 +112,10 @@ const AppContent = observer(() => {
             <Paper elevation={3} sx={{ flex: 1, p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
                 <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <SearchP1Incident incidents={p1Incidents} scrollContainerRef={p1ScrollRef} />
+                  <SearchP1Incident 
+                    incidents={p1Incidents} 
+                    onSearchResults={handleSearchResults('p1')}
+                  />
                 </Box>
                 <Chip 
                   label={`${p1Incidents.length}`} 
@@ -118,11 +131,11 @@ const AppContent = observer(() => {
                 </Box>
               ) : p1Error ? (
                 <Alert severity="error">{p1Error}</Alert>
-              ) : p1Incidents.length > 0 ? (
-                <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }} ref={p1ScrollRef}>
+              ) : (search.p1.term ? search.p1.filtered : p1Incidents).length > 0 ? (
+                <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    {p1Incidents.map(incident => (
-                      <Box key={incident.incident_no} data-incident-id={incident.incident_no}>
+                    {(search.p1.term ? search.p1.filtered : p1Incidents).map(incident => (
+                      <Box key={incident.incident_no}>
                         <P1IncidentCard incident={incident} />
                       </Box>
                     ))}
@@ -137,7 +150,7 @@ const AppContent = observer(() => {
             <Paper elevation={3} sx={{ flex: 1, p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
                 <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <SearchP2Incident incidents={p2Incidents} scrollContainerRef={p2ScrollRef} />
+                  <SearchP2Incident incidents={p2Incidents} onSearchResults={handleSearchResults('p2')} />
                 </Box>
                 <Chip 
                   label={`${p2Incidents.length}`} 
@@ -153,11 +166,11 @@ const AppContent = observer(() => {
                 </Box>
               ) : p2Error ? (
                 <Alert severity="error">{p2Error}</Alert>
-              ) : p2Incidents.length > 0 ? (
-                <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }} ref={p2ScrollRef}>
+              ) : (search.p2.term ? search.p2.filtered : p2Incidents).length > 0 ? (
+                <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    {p2Incidents.map(incident => (
-                      <Box key={incident.incident_no} data-incident-id={incident.incident_no}>
+                    {(search.p2.term ? search.p2.filtered : p2Incidents).map(incident => (
+                      <Box key={incident.incident_no}>
                         <P2IncidentCard incident={incident} />
                       </Box>
                     ))}
@@ -173,21 +186,20 @@ const AppContent = observer(() => {
           <Paper elevation={3} sx={{ p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
               <Box sx={{ flex: 1, minWidth: 0 }}>
-                <SearchAllIncident incidents={allIncidents} scrollContainerRef={allScrollRef} />
+                <SearchAllIncident incidents={allIncidents} onSearchResults={handleSearchResults('all')} />
               </Box>
               <Chip 
-                label={`${allIncidents.length}`} 
+                label={`${search.all.term ? search.all.filtered.length : allIncidents.length}`} 
                 color="primary" 
                 size="small"
                 sx={{ fontWeight: 'bold' }}
               />
             </Box>
-            
-            {allIncidents.length > 0 ? (
-              <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }} ref={allScrollRef}>
+            {(search.all.term ? search.all.filtered : allIncidents).length > 0 ? (
+              <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }}>
                 <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2 }}>
-                  {allIncidents.map(incident => (
-                    <Box key={incident.incident_no} data-incident-id={incident.incident_no}>
+                  {(search.all.term ? search.all.filtered : allIncidents).map(incident => (
+                    <Box key={incident.incident_no}>
                       <IncidentCard incident={incident} />
                     </Box>
                   ))}
