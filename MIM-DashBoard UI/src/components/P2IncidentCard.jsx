@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Card,
   CardContent,
@@ -25,104 +25,71 @@ import {
   AccessTime as AccessTimeIcon,
 } from '@mui/icons-material';
 
+const SLA_HOURS = 8;
+
+const getStatusColor = (status) => {
+  switch ((status || 'open').toLowerCase()) {
+    case 'open': return 'error';
+    case 'in progress': return 'warning';
+    case 'resolved': return 'success';
+    case 'closed': return 'default';
+    default: return 'info';
+  }
+};
+
+const getPriorityColor = (priorityLevel) => {
+  switch (priorityLevel) {
+    case 'URGENT': return 'error';
+    case 'HIGH': return 'warning';
+    case 'MEDIUM': return 'info';
+    default: return 'info';
+  }
+};
+
+const getBorderColor = (priorityLevel) => {
+  if (priorityLevel === 'URGENT') return 'error.main';
+  if (priorityLevel === 'HIGH') return 'warning.main';
+  return 'info.main';
+};
+
+const getPriorityLevel = (progressPercent) => {
+  if (progressPercent >= 75) return 'URGENT';
+  if (progressPercent >= 50) return 'HIGH';
+  return 'MEDIUM';
+};
+
 const P2IncidentCard = ({ incident, onStatusUpdate, onAssign }) => {
   const [showDetails, setShowDetails] = useState(false);
-  const [timeElapsed, setTimeElapsed] = useState('');
-  const [progress, setProgress] = useState(0);
-  const [priorityLevel, setPriorityLevel] = useState('HIGH');
 
+  // Memoize time/progress/priority calculations
+  const { timeElapsed, progress, priorityLevel } = useMemo(() => {
+    const createdTime = new Date(incident.created_on);
+    const now = new Date();
+    const diffMs = now - createdTime;
+    const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    const timeElapsed = `${diffHrs}h ${diffMins}m ago`;
+    const progress = Math.min((diffMs / (SLA_HOURS * 60 * 60 * 1000)) * 100, 100);
+    const priorityLevel = getPriorityLevel(progress);
+    return { timeElapsed, progress, priorityLevel };
+  }, [incident.created_on, Date.now()]);
+
+  // Update every minute
   useEffect(() => {
-    const calculateMetrics = () => {
-      const createdTime = new Date(incident.created_on);
-      const now = new Date();
-      const diffMs = now - createdTime;
-      const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
-      const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-      
-      setTimeElapsed(`${diffHrs}h ${diffMins}m ago`);
-      
-      // Calculate SLA progress (8-hour SLA for P2)
-      const slaHours = 8;
-      const progressPercent = Math.min((diffHrs / slaHours) * 100, 100);
-      setProgress(progressPercent);
-      
-      // Auto-escalate priority based on time
-      if (progressPercent >= 75) {
-        setPriorityLevel('URGENT');
-      } else if (progressPercent >= 50) {
-        setPriorityLevel('HIGH');
-      } else {
-        setPriorityLevel('MEDIUM');
-      }
-    };
-
-    calculateMetrics();
-    const interval = setInterval(calculateMetrics, 60000);
+    const interval = setInterval(() => {
+      // Triggers re-render for useMemo
+      setShowDetails((prev) => prev);
+    }, 60000);
     return () => clearInterval(interval);
-  }, [incident.created_on]);
+  }, []);
 
-  const toggleDetails = () => {
-    setShowDetails(!showDetails);
-  };
+  const toggleDetails = () => setShowDetails((prev) => !prev);
 
   const handleHighPriorityAlert = () => {
     const subject = `📈 P2 High Priority: ${incident.incident_no}`;
-    const body = `P2 High Priority Incident Notification
-    
-📊 P2 INCIDENT DETAILS
-
-Incident: ${incident.incident_no}
-Priority: ${priorityLevel}
-Status: ${incident.status || 'OPEN'}
-Age: ${timeElapsed}
-SLA Progress: ${Math.round(progress)}% complete
-Description: ${incident.description}
-Reporter: ${incident.created_by}
-Created: ${incident.created_on}
-
-PRIORITY ACTIONS:
-1. Review and assess impact
-2. Assign to appropriate team
-3. Provide initial response within 2 hours
-4. Update stakeholders on progress`;
-
+    const body = `P2 High Priority Incident Notification\n\n📊 P2 INCIDENT DETAILS\n\nIncident: ${incident.incident_no}\nPriority: ${priorityLevel}\nStatus: ${incident.status || 'OPEN'}\nAge: ${timeElapsed}\nSLA Progress: ${Math.round(progress)}% complete\nDescription: ${incident.description}\nReporter: ${incident.created_by}\nCreated: ${incident.created_on}\n\nPRIORITY ACTIONS:\n1. Review and assess impact\n2. Assign to appropriate team\n3. Provide initial response within 2 hours\n4. Update stakeholders on progress`;
     const mailtoLink = `mailto:high-priority@oup.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.open(mailtoLink, '_blank');
-  };
-
-  const getStatusColor = () => {
-    const status = incident.status?.toLowerCase() || 'open';
-    switch (status) {
-      case 'open':
-        return 'error';
-      case 'in progress':
-        return 'warning';
-      case 'resolved':
-        return 'success';
-      case 'closed':
-        return 'default';
-      default:
-        return 'info';
-    }
-  };
-
-  const getPriorityColor = () => {
-    switch (priorityLevel) {
-      case 'URGENT':
-        return 'error';
-      case 'HIGH':
-        return 'warning';
-      case 'MEDIUM':
-        return 'info';
-      default:
-        return 'info';
-    }
-  };
-
-  const getBorderColor = () => {
-    if (priorityLevel === 'URGENT') return 'error.main';
-    if (priorityLevel === 'HIGH') return 'warning.main';
-    return 'info.main';
   };
 
   return (
@@ -130,7 +97,7 @@ PRIORITY ACTIONS:
       sx={{ 
         mb: 2, 
         borderLeft: 4, 
-        borderLeftColor: (theme) => theme.palette[getBorderColor().split('.')[0]]?.main || theme.palette.info.main,
+        borderLeftColor: (theme) => theme.palette[getBorderColor(priorityLevel).split('.')[0]]?.main || theme.palette.info.main,
         backgroundColor: (theme) => theme.palette.background.card,
         color: (theme) => theme.palette.text.primary,
         '&:hover': { 
@@ -146,7 +113,7 @@ PRIORITY ACTIONS:
           </Typography>
           <Chip 
             label={incident.status || 'OPEN'} 
-            color={getStatusColor()}
+            color={getStatusColor(incident.status)}
             size="small"
             sx={{ fontWeight: 'bold' }}
           />
@@ -154,12 +121,12 @@ PRIORITY ACTIONS:
 
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
           <WarningIcon 
-            color={getPriorityColor()} 
+            color={getPriorityColor(priorityLevel)} 
             sx={{ mr: 1, fontSize: 20 }} 
           />
           <Chip 
             label={`${priorityLevel} PRIORITY P2`}
-            color={getPriorityColor()}
+            color={getPriorityColor(priorityLevel)}
             size="small"
             variant="outlined"
             sx={{ fontWeight: 'bold' }}
@@ -188,7 +155,7 @@ PRIORITY ACTIONS:
           </Typography>
         </Box>
 
-          <Typography variant="body2" sx={{ mb: 2, color: (theme) => theme.palette.text.primary }}>
+        <Typography variant="body2" sx={{ mb: 2, color: (theme) => theme.palette.text.primary }}>
           {incident.description}
         </Typography>
 
@@ -208,7 +175,6 @@ PRIORITY ACTIONS:
           >
             {showDetails ? 'Hide Details' : 'Details'}
           </Button>
-          
           <Button
             variant="contained"
             size="small"
@@ -219,7 +185,6 @@ PRIORITY ACTIONS:
           >
             Alert
           </Button>
-
           {onAssign && (
             <Button
               variant="contained"
@@ -256,26 +221,26 @@ PRIORITY ACTIONS:
               Impact Assessment
             </Typography>
             <Grid container spacing={1}>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="body2">
-                <strong>Business Impact:</strong> {incident.impact || 'Moderate system disruption'}
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="body2">
-                <strong>Affected Users:</strong> {incident.affected_users || 'All users'}
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="body2">
-                <strong>Affected Systems:</strong> {incident.affected_system || 'To be determined'}
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography variant="body2">
-                <strong>Business Priority:</strong> {priorityLevel}
-              </Typography>
-            </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body2">
+                  <strong>Business Impact:</strong> {incident.impact || 'Moderate system disruption'}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body2">
+                  <strong>Affected Users:</strong> {incident.affected_users || 'All users'}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body2">
+                  <strong>Affected Systems:</strong> {incident.affected_system || 'To be determined'}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body2">
+                  <strong>Business Priority:</strong> {priorityLevel}
+                </Typography>
+              </Grid>
             </Grid>
             <Box sx={{ mt: 1 }}>
               <Typography variant="body2" color="text.secondary">

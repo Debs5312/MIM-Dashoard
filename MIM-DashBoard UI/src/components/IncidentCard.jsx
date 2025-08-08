@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Card,
   CardContent,
@@ -23,59 +23,60 @@ import {
   Assignment as AssignmentIcon,
 } from '@mui/icons-material';
 
+const getPriorityColor = (priority) => {
+  switch (priority?.toLowerCase()) {
+    case 'p1': return 'error';
+    case 'p2': return 'warning';
+    case 'p3': return 'success';
+    case 'p4': return 'info';
+    default: return 'default';
+  }
+};
+
+const getStatusColor = (status) => {
+  switch (status?.toLowerCase()) {
+    case 'open': return 'default';
+    case 'in_progress': return 'info';
+    case 'resolved': return 'success';
+    case 'closed': return 'default';
+    default: return 'default';
+  }
+};
+
+const formatDate = (dateString) => {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+};
+
 const IncidentCard = ({ incident }) => {
   const [showDetails, setShowDetails] = useState(false);
   const theme = useTheme();
 
-  const toggleDetails = () => {
-    setShowDetails(!showDetails);
-  };
-
-  const getPriorityColor = (priority) => {
-    switch (priority?.toLowerCase()) {
-      case 'p1': return 'error';
-      case 'p2': return 'warning';
-      case 'p3': return 'success';
-      case 'p4': return 'info';
-      default: return 'default';
+  // Memoize border color for performance
+  const borderLeftColor = useMemo(() => {
+    const priority = incident.priority?.toLowerCase();
+    switch (priority) {
+      case 'p1': return theme.palette.error.main;
+      case 'p2': return theme.palette.warning.main;
+      case 'p3': return theme.palette.success.main;
+      case 'p4': return theme.palette.info.main;
+      default: return theme.palette.grey[400];
     }
-  };
+  }, [incident.priority, theme]);
 
-  const getStatusColor = (status) => {
-    switch (status?.toLowerCase()) {
-      case 'open': return 'default';
-      case 'in_progress': return 'info';
-      case 'resolved': return 'success';
-      case 'closed': return 'default';
-      default: return 'default';
-    }
-  };
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
+  const toggleDetails = () => setShowDetails((prev) => !prev);
 
   return (
     <Card 
       sx={{ 
         mb: 2, 
         borderLeft: 4,
-        borderLeftColor: (theme) => {
-          const priority = incident.priority?.toLowerCase();
-          switch (priority) {
-            case 'p1': return theme.palette.error.main;
-            case 'p2': return theme.palette.warning.main;
-            case 'p3': return theme.palette.success.main;
-            case 'p4': return theme.palette.info.main;
-            default: return theme.palette.grey[400];
-          }
-        },
+        borderLeftColor,
         '&:hover': {
           boxShadow: theme.shadows[8],
         }
@@ -100,34 +101,32 @@ const IncidentCard = ({ incident }) => {
             />
           </Box>
         </Box>
-
         <Grid container spacing={2} mb={2}>
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid item xs={12} sm={6}>
             <Typography variant="body2" color="text.secondary">
               <strong>Reporter:</strong> {incident.created_by}
             </Typography>
           </Grid>
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid item xs={12} sm={6}>
             <Typography variant="body2" color="text.secondary">
               <strong>Created:</strong> {formatDate(incident.created_on)}
             </Typography>
           </Grid>
           {incident.assigned_to && (
-            <Grid size={{ xs: 12, sm: 6 }}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="body2" color="text.secondary">
                 <strong>Assigned:</strong> {incident.assigned_to}
               </Typography>
             </Grid>
           )}
           {incident.category && (
-            <Grid size={{ xs: 12, sm: 6 }}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="body2" color="text.secondary">
                 <strong>Category:</strong> {incident.category}
               </Typography>
             </Grid>
           )}
         </Grid>
-
         <Typography 
           variant="body1" 
           color="text.primary"
@@ -141,7 +140,6 @@ const IncidentCard = ({ incident }) => {
           {incident.description}
         </Typography>
       </CardContent>
-
       <CardActions>
         <Button
           size="small"
@@ -153,7 +151,6 @@ const IncidentCard = ({ incident }) => {
           {showDetails ? 'Hide Details' : 'Show Details'}
         </Button>
       </CardActions>
-
       <Collapse 
         in={showDetails} 
         timeout="auto" 
@@ -164,42 +161,40 @@ const IncidentCard = ({ incident }) => {
           <Typography variant="h6" gutterBottom>
             Incident Details
           </Typography>
-          
           <Grid container spacing={2}>
-            <Grid size={{ xs: 12, sm: 6 }}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="body2">
                 <strong>Incident Number:</strong> {incident.incident_no}
               </Typography>
             </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="body2">
                 <strong>Priority:</strong> {incident.priority || 'Not Set'}
               </Typography>
             </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="body2">
                 <strong>Status:</strong> {incident.status || 'OPEN'}
               </Typography>
             </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="body2">
                 <strong>Created By:</strong> {incident.created_by}
               </Typography>
             </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="body2">
                 <strong>Created On:</strong> {formatDate(incident.created_on)}
               </Typography>
             </Grid>
             {incident.assigned_to && (
-              <Grid size={{ xs: 12, sm: 6 }}>
+              <Grid item xs={12} sm={6}>
                 <Typography variant="body2">
                   <strong>Assigned To:</strong> {incident.assigned_to}
                 </Typography>
               </Grid>
             )}
           </Grid>
-
           {incident.additional_details && (
             <>
               <Divider sx={{ my: 2 }} />
@@ -211,7 +206,6 @@ const IncidentCard = ({ incident }) => {
               </Typography>
             </>
           )}
-
           {incident.steps_to_reproduce && (
             <>
               <Divider sx={{ my: 2 }} />
@@ -227,7 +221,6 @@ const IncidentCard = ({ incident }) => {
               </List>
             </>
           )}
-
           <Divider sx={{ my: 2 }} />
           <Box display="flex" gap={1} flexWrap="wrap">
             <Button

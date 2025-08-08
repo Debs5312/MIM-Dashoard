@@ -50,11 +50,25 @@ const AppContent = observer(() => {
     await incidentStore.refreshData();
   };
 
-  // DRY: Generic handler for search results
-  const handleSearchResults = useCallback((type) => (filteredResults, searchTerm) => {
+  // DRY: Handlers for search results (avoid infinite loop)
+  const handleP1SearchResults = useCallback((filteredResults, searchTerm) => {
     setSearch(prev => ({
       ...prev,
-      [type]: { term: searchTerm, filtered: filteredResults }
+      p1: { term: searchTerm, filtered: filteredResults }
+    }));
+  }, []);
+
+  const handleP2SearchResults = useCallback((filteredResults, searchTerm) => {
+    setSearch(prev => ({
+      ...prev,
+      p2: { term: searchTerm, filtered: filteredResults }
+    }));
+  }, []);
+
+  const handleAllSearchResults = useCallback((filteredResults, searchTerm) => {
+    setSearch(prev => ({
+      ...prev,
+      all: { term: searchTerm, filtered: filteredResults }
     }));
   }, []);
 
@@ -114,7 +128,7 @@ const AppContent = observer(() => {
                 <Box sx={{ flex: 1, minWidth: 0 }}>
                   <SearchP1Incident 
                     incidents={p1Incidents} 
-                    onSearchResults={handleSearchResults('p1')}
+                    onSearchResults={handleP1SearchResults}
                   />
                 </Box>
                 <Chip 
@@ -150,7 +164,7 @@ const AppContent = observer(() => {
             <Paper elevation={3} sx={{ flex: 1, p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
                 <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <SearchP2Incident incidents={p2Incidents} onSearchResults={handleSearchResults('p2')} />
+                  <SearchP2Incident incidents={p2Incidents} onSearchResults={handleP2SearchResults} />
                 </Box>
                 <Chip 
                   label={`${p2Incidents.length}`} 
@@ -186,7 +200,7 @@ const AppContent = observer(() => {
           <Paper elevation={3} sx={{ p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
               <Box sx={{ flex: 1, minWidth: 0 }}>
-                <SearchAllIncident incidents={allIncidents} onSearchResults={handleSearchResults('all')} />
+                <SearchAllIncident incidents={allIncidents} onSearchResults={handleAllSearchResults} />
               </Box>
               <Chip 
                 label={`${search.all.term ? search.all.filtered.length : allIncidents.length}`} 
