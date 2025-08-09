@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Create transporter for Outlook SMTP
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   host: process.env.OUTLOOK_HOST || 'smtp-mail.outlook.com',
   port: parseInt(process.env.OUTLOOK_PORT) || 587,
   secure: false,
