@@ -85,10 +85,26 @@ const P2IncidentCard = ({ incident, onStatusUpdate, onAssign }) => {
 
   const toggleDetails = () => setShowDetails((prev) => !prev);
 
-  const handleHighPriorityAlert = () => {
+  const handleCriticalAlert = () => {
     const subject = `📈 P2 High Priority: ${incident.incident_no}`;
-    const body = `P2 High Priority Incident Notification\n\n📊 P2 INCIDENT DETAILS\n\nIncident: ${incident.incident_no}\nPriority: ${priorityLevel}\nStatus: ${incident.status || 'OPEN'}\nAge: ${timeElapsed}\nSLA Progress: ${Math.round(progress)}% complete\nDescription: ${incident.description}\nReporter: ${incident.created_by}\nCreated: ${incident.created_on}\n\nPRIORITY ACTIONS:\n1. Review and assess impact\n2. Assign to appropriate team\n3. Provide initial response within 2 hours\n4. Update stakeholders on progress`;
-    const mailtoLink = `mailto:high-priority@oup.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const plainTextBody = 
+      `Please review the following P2 incident information:\n\n` +
+      `Incident No: ${incident.incident_no}\n` +
+      `Status: ${incident.status || 'OPEN'}\n` +
+      `Age: ${timeElapsed}\n` +
+      `SLA Progress: ${Math.round(progress)}% complete\n` +
+      `Priority: ${priorityLevel} P2\n` +
+      `Reporter: ${incident.created_by}\n` +
+      `Created: ${incident.created_on}\n` +
+      `Description: ${incident.description}\n\n` +
+      `PRIORITY ACTIONS:\n` +
+      `1. Review and assess impact\n` +
+      `2. Assign to appropriate team\n` +
+      `3. Provide initial response within 2 hours\n` +
+      `4. Update stakeholders on progress\n\n` +
+      `This email was sent automatically. Please do not reply.`;
+
+    const mailtoLink = `mailto:high-priority@oup.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(plainTextBody)}`;
     window.open(mailtoLink, '_blank');
   };
 
@@ -179,7 +195,7 @@ const P2IncidentCard = ({ incident, onStatusUpdate, onAssign }) => {
             variant="contained"
             size="small"
             color="error"
-            onClick={handleHighPriorityAlert}
+            onClick={handleCriticalAlert}
             startIcon={<EmailIcon />}
             sx={{ textTransform: 'none' }}
           >

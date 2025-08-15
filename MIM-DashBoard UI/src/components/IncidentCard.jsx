@@ -213,7 +213,7 @@ const IncidentCard = ({ incident }) => {
                 Steps to Reproduce
               </Typography>
               <List dense>
-                {incident.steps_to_reproduce.map((step, index) => (
+                {(incident.steps_to_reproduce || []).map((step, index) => (
                   <ListItem key={index} sx={{ py: 0.5 }}>
                     <ListItemText primary={step} />
                   </ListItem>

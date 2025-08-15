@@ -4,7 +4,7 @@ import { incidentService } from '../services/incidentService';
 class IncidentStore {
   p1Incidents = [];
   p2Incidents = [];
-  allIncidents = [];
+  mimIncidents = [];
   loading = true;
   p1Loading = false;
   p2Loading = false;
@@ -15,12 +15,15 @@ class IncidentStore {
   constructor() {
     makeAutoObservable(this);
     
-    // Auto-observable technique: reaction to automatically combine incidents
+    // Auto-observable technique: reaction to filter incidents by mim_eligibility_status
     reaction(
       () => [this.p1Incidents, this.p2Incidents],
       ([p1Incidents, p2Incidents]) => {
         runInAction(() => {
-            this.allIncidents = [...p1Incidents, ...p2Incidents];
+            const allCombinedIncidents = [...p1Incidents, ...p2Incidents];
+            this.mimIncidents = allCombinedIncidents.filter(
+              incident => incident.mim_eligibility_status === "accepted"
+            );
         });
       }
     );

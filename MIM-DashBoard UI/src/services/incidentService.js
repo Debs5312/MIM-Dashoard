@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3000/incident';
+//const API_BASE_URL = 'http://localhost:3000/api/incident/';
+const API_BASE_URL = 'https://cts-vibeappea5112-3.azurewebsites.net/api/incident/';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,

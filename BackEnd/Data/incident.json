@@ -1,6 +1,6 @@
 [
   {
-    "incident_no": "INC001",
+    "incident_no": "INC1965261",
     "description": "Critical database connection failure in production environment causing complete service outage",
     "priority": "P1",
     "created_on": "2025-08-06 12:15:30",
@@ -8,10 +8,11 @@
     "status": "Open",
     "impact": "Complete business disruption - all customer-facing services are unavailable, preventing new orders, account access, and payment processing. Estimated revenue loss of $50,000 per hour.",
     "affected_users": "All 25,000 active users",
-    "affected_system": "Downstream: Payment Gateway API, Customer Portal, Mobile App. Upstream: Oracle Production DB Cluster, Load Balancer Pool A"
+    "affected_system": "Downstream: Payment Gateway API, Customer Portal, Mobile App. Upstream: Oracle Production DB Cluster, Load Balancer Pool A",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC002",
+    "incident_no": "INC1965262",
     "description": "Primary authentication service experiencing intermittent failures with LDAP integration",
     "priority": "P1",
     "created_on": "2025-08-06 12:45:12",
@@ -19,10 +20,11 @@
     "status": "Open",
     "impact": "Users unable to login to critical business applications, affecting productivity across all departments. Customer support tickets increased by 300%.",
     "affected_users": "All 18,500 internal users and 12,000 external customers",
-    "affected_system": "Downstream: CRM System, ERP Portal, HR Self-Service. Upstream: Active Directory Domain Controllers, LDAP Authentication Service"
+    "affected_system": "Downstream: CRM System, ERP Portal, HR Self-Service. Upstream: Active Directory Domain Controllers, LDAP Authentication Service",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC003",
+    "incident_no": "INC1965263",
     "description": "Core payment processing API returning 500 errors during peak transaction hours",
     "priority": "P1",
     "created_on": "2025-08-06 13:20:45",
@@ -30,10 +32,11 @@
     "status": "Open",
     "impact": "E-commerce transactions failing, customers unable to complete purchases. Shopping cart abandonment rate increased to 85%.",
     "affected_users": "All 45,000 daily active shoppers",
-    "affected_system": "Downstream: Checkout Service, Order Management, Email Notifications. Upstream: Payment Gateway, Fraud Detection Service, Banking APIs"
+    "affected_system": "Downstream: Checkout Service, Order Management, Email Notifications. Upstream: Payment Gateway, Fraud Detection Service, Banking APIs",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC004",
+    "incident_no": "INC1965264",
     "description": "Email notification service cluster completely down affecting all automated communications",
     "priority": "P1",
     "created_on": "2025-08-06 13:55:18",
@@ -41,10 +44,11 @@
     "status": "Open",
     "impact": "No order confirmations, shipping notifications, or password reset emails being sent. Customer service call volume increased by 400%.",
     "affected_users": "All 100,000 registered customers",
-    "affected_system": "Downstream: Customer Communication Platform, Marketing Automation. Upstream: SMTP Relay Cluster, Message Queue Service, Template Engine"
+    "affected_system": "Downstream: Customer Communication Platform, Marketing Automation. Upstream: SMTP Relay Cluster, Message Queue Service, Template Engine",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC005",
+    "incident_no": "INC1965265",
     "description": "Inventory management system showing incorrect stock levels across all warehouses",
     "priority": "P1",
     "created_on": "2025-08-06 14:30:22",
@@ -52,10 +56,11 @@
     "status": "Open",
     "impact": "Overselling products not in stock, delayed shipments, and potential customer cancellations. Risk of SLA breaches with major retailers.",
     "affected_users": "All 500+ warehouse staff and 50,000+ customers",
-    "affected_system": "Downstream: E-commerce Platform, Order Fulfillment, Supplier Portal. Upstream: Warehouse Management System, ERP Database, Barcode Scanning Service"
+    "affected_system": "Downstream: E-commerce Platform, Order Fulfillment, Supplier Portal. Upstream: Warehouse Management System, ERP Database, Barcode Scanning Service",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC006",
+    "incident_no": "INC1965266",
     "description": "CDN edge servers experiencing global outage affecting static content delivery",
     "priority": "P1",
     "created_on": "2025-08-06 15:10:55",
@@ -63,10 +68,11 @@
     "status": "Open",
     "impact": "Website loading extremely slowly, images and CSS not rendering. Mobile app performance severely degraded. Bounce rate increased to 90%.",
     "affected_users": "All 2 million monthly visitors",
-    "affected_system": "Downstream: Web Application, Mobile App, Marketing Sites. Upstream: CDN Provider Network, Origin Servers, DNS Resolution Service"
+    "affected_system": "Downstream: Web Application, Mobile App, Marketing Sites. Upstream: CDN Provider Network, Origin Servers, DNS Resolution Service",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC007",
+    "incident_no": "INC1965267",
     "description": "Customer data synchronization failing between CRM and billing systems",
     "priority": "P1",
     "created_on": "2025-08-06 15:45:33",
@@ -74,10 +80,11 @@
     "status": "Open",
     "impact": "Billing discrepancies, incorrect customer information, and potential revenue leakage. Compliance risk with financial regulations.",
     "affected_users": "All 75,000 active subscribers",
-    "affected_system": "Downstream: Billing Platform, Customer Portal, Reporting Dashboard. Upstream: CRM Database, Data Warehouse, ETL Pipeline"
+    "affected_system": "Downstream: Billing Platform, Customer Portal, Reporting Dashboard. Upstream: CRM Database, Data Warehouse, ETL Pipeline",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC008",
+    "incident_no": "INC1965268",
     "description": "Mobile app push notification service completely unresponsive",
     "priority": "P1",
     "created_on": "2025-08-06 16:20:47",
@@ -85,10 +92,11 @@
     "status": "Open",
     "impact": "Critical security alerts and delivery notifications not reaching mobile users. Customer engagement metrics dropped by 60%.",
     "affected_users": "All 150,000 mobile app users",
-    "affected_system": "Downstream: Mobile Applications, User Engagement Platform. Upstream: Firebase Cloud Messaging, APNS Gateway, Notification Queue Service"
+    "affected_system": "Downstream: Mobile Applications, User Engagement Platform. Upstream: Firebase Cloud Messaging, APNS Gateway, Notification Queue Service",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC009",
+    "incident_no": "INC1965269",
     "description": "Real-time analytics dashboard showing stale data for last 4 hours",
     "priority": "P1",
     "created_on": "2025-08-06 16:55:14",
@@ -96,10 +104,11 @@
     "status": "Open",
     "impact": "Business decisions being made on outdated information. Marketing campaigns running blind without performance metrics.",
     "affected_users": "All 200+ business analysts and executives",
-    "affected_system": "Downstream: Executive Dashboard, Marketing Analytics, Sales Reports. Upstream: Data Streaming Pipeline, Kafka Cluster, Analytics Database"
+    "affected_system": "Downstream: Executive Dashboard, Marketing Analytics, Sales Reports. Upstream: Data Streaming Pipeline, Kafka Cluster, Analytics Database",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC010",
+    "incident_no": "INC1965270",
     "description": "Primary load balancer experiencing hardware failure causing traffic routing issues",
     "priority": "P1",
     "created_on": "2025-08-06 17:30:28",
@@ -107,10 +116,11 @@
     "status": "Open",
     "impact": "50% of web traffic being dropped, intermittent service availability. Revenue impact estimated at $100,000 per hour.",
     "affected_users": "All 500,000 daily active users",
-    "affected_system": "Downstream: All Web Services, API Gateway, Application Servers. Upstream: Primary Load Balancer, Network Infrastructure, DNS Service"
+    "affected_system": "Downstream: All Web Services, API Gateway, Application Servers. Upstream: Primary Load Balancer, Network Infrastructure, DNS Service",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC011",
+    "incident_no": "INC1965271",
     "description": "Secondary database replication lag causing read-only query timeouts",
     "priority": "P2",
     "created_on": "2025-08-06 12:05:15",
@@ -118,10 +128,11 @@
     "status": "Open",
     "impact": "Reporting queries timing out, business intelligence dashboards loading slowly. Some non-critical reports unavailable.",
     "affected_users": "50 business analysts and data scientists",
-    "affected_system": "Downstream: BI Tools, Reporting Services, Data Analytics. Upstream: Read Replica Database, Replication Service, Network Connectivity"
+    "affected_system": "Downstream: BI Tools, Reporting Services, Data Analytics. Upstream: Read Replica Database, Replication Service, Network Connectivity",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC012",
+    "incident_no": "INC1965272",
     "description": "Search functionality returning incomplete results for product catalog",
     "priority": "P2",
     "created_on": "2025-08-06 12:25:40",
@@ -129,10 +140,11 @@
     "status": "Open",
     "impact": "Customers unable to find specific products, reduced conversion rates by 15%. Search-to-purchase funnel disrupted.",
     "affected_users": "25,000 daily shoppers using search",
-    "affected_system": "Downstream: E-commerce Search, Product Pages, Recommendation Engine. Upstream: Elasticsearch Cluster, Product Database, Search Indexing Service"
+    "affected_system": "Downstream: E-commerce Search, Product Pages, Recommendation Engine. Upstream: Elasticsearch Cluster, Product Database, Search Indexing Service",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC013",
+    "incident_no": "INC1965273",
     "description": "Scheduled backup job failing for customer transaction logs",
     "priority": "P2",
     "created_on": "2025-08-06 12:50:22",
@@ -140,10 +152,11 @@
     "status": "Open",
     "impact": "Risk of data loss for last 24 hours of transactions. Compliance audit requirements not met for financial data retention.",
     "affected_users": "All transaction processing users (potential future impact)",
-    "affected_system": "Downstream: Backup Storage, Disaster Recovery Site. Upstream: Transaction Log Database, Backup Scheduler, Storage Network"
+    "affected_system": "Downstream: Backup Storage, Disaster Recovery Site. Upstream: Transaction Log Database, Backup Scheduler, Storage Network",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC014",
+    "incident_no": "INC1965274",
     "description": "API rate limiting too aggressive causing legitimate partner integrations to fail",
     "priority": "P2",
     "created_on": "2025-08-06 13:15:55",
@@ -151,10 +164,11 @@
     "status": "Open",
     "impact": "Third-party logistics partners unable to update shipment statuses. Customer tracking information delayed by 2-4 hours.",
     "affected_users": "15,000 customers awaiting shipment updates",
-    "affected_system": "Downstream: Partner Portal, Shipment Tracking, Customer Notifications. Upstream: API Gateway, Rate Limiting Service, Partner Integration Platform"
+    "affected_system": "Downstream: Partner Portal, Shipment Tracking, Customer Notifications. Upstream: API Gateway, Rate Limiting Service, Partner Integration Platform",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC015",
+    "incident_no": "INC1965275",
     "description": "Content management system publishing delays affecting marketing campaigns",
     "priority": "P2",
     "created_on": "2025-08-06 13:40:18",
@@ -162,10 +176,11 @@
     "status": "Open",
     "impact": "Promotional content not appearing on schedule, Black Friday campaign materials delayed. Potential revenue impact of $25,000.",
     "affected_users": "Marketing team of 25 people and 100,000 potential customers",
-    "affected_system": "Downstream: Website Content, Email Campaigns, Social Media. Upstream: CMS Database, Publishing Queue, CDN Invalidation Service"
+    "affected_system": "Downstream: Website Content, Email Campaigns, Social Media. Upstream: CMS Database, Publishing Queue, CDN Invalidation Service",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC016",
+    "incident_no": "INC1965276",
     "description": "Customer support chatbot providing incorrect answers due to ML model corruption",
     "priority": "P2",
     "created_on": "2025-08-06 14:05:33",
@@ -173,10 +188,11 @@
     "status": "Open",
     "impact": "Customer satisfaction scores dropping, increased escalation to human agents by 200%. Average handle time increased by 15 minutes.",
     "affected_users": "5,000 daily chatbot users",
-    "affected_system": "Downstream: Customer Support Portal, Help Center, Ticket System. Upstream: ML Model Service, Training Data Pipeline, NLP Engine"
+    "affected_system": "Downstream: Customer Support Portal, Help Center, Ticket System. Upstream: ML Model Service, Training Data Pipeline, NLP Engine",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC017",
+    "incident_no": "INC1965277",
     "description": "Warehouse barcode scanners intermittently losing network connectivity",
     "priority": "P2",
     "created_on": "2025-08-06 14:35:47",
@@ -184,10 +200,11 @@
     "status": "Open",
     "impact": "Shipping delays of 2-3 hours per order, inventory accuracy degraded to 85%. SLA breach risk with premium customers.",
     "affected_users": "200 warehouse staff and 1,000 daily orders",
-    "affected_system": "Downstream: Inventory System, Order Processing, Shipping Labels. Upstream: Wireless Network, Barcode Scanners, Warehouse Management Server"
+    "affected_system": "Downstream: Inventory System, Order Processing, Shipping Labels. Upstream: Wireless Network, Barcode Scanners, Warehouse Management Server",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC018",
+    "incident_no": "INC1965278",
     "description": "Customer review system moderation queue backed up with 10,000 pending reviews",
     "priority": "P2",
     "created_on": "2025-08-06 15:00:12",
@@ -195,10 +212,11 @@
     "status": "Open",
     "impact": "New product reviews not visible affecting purchase decisions. Potential customers unable to see recent feedback.",
     "affected_users": "50,000 daily product browsers",
-    "affected_system": "Downstream: Product Pages, Review Display, SEO Rankings. Upstream: Moderation Service, AI Content Filter, Review Database"
+    "affected_system": "Downstream: Product Pages, Review Display, SEO Rankings. Upstream: Moderation Service, AI Content Filter, Review Database",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC019",
+    "incident_no": "INC1965279",
     "description": "Sales commission calculation system showing discrepancies for last pay period",
     "priority": "P2",
     "created_on": "2025-08-06 15:25:28",
@@ -206,10 +224,11 @@
     "status": "Open",
     "impact": "Sales team morale affected, potential payroll disputes. Finance team working overtime to manually verify calculations.",
     "affected_users": "500 sales representatives and 20 finance staff",
-    "affected_system": "Downstream: Payroll System, Sales Dashboard, Commission Reports. Upstream: Sales Database, Calculation Engine, ERP Integration"
+    "affected_system": "Downstream: Payroll System, Sales Dashboard, Commission Reports. Upstream: Sales Database, Calculation Engine, ERP Integration",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC020",
+    "incident_no": "INC1965280",
     "description": "Mobile app deep linking broken for product sharing functionality",
     "priority": "P2",
     "created_on": "2025-08-06 15:50:44",
@@ -217,10 +236,11 @@
     "status": "Open",
     "impact": "Social media traffic conversion down 30%, viral marketing campaigns ineffective. Users unable to share products with friends.",
     "affected_users": "75,000 mobile app users",
-    "affected_system": "Downstream: Mobile App, Social Sharing, Analytics Tracking. Upstream: Deep Link Service, URL Routing, Social Media APIs"
+    "affected_system": "Downstream: Mobile App, Social Sharing, Analytics Tracking. Upstream: Deep Link Service, URL Routing, Social Media APIs",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC021",
+    "incident_no": "INC1965281",
     "description": "Supplier portal document upload failing for large files over 10MB",
     "priority": "P2",
     "created_on": "2025-08-06 16:15:19",
@@ -228,10 +248,11 @@
     "status": "Open",
     "impact": "Purchase orders delayed, supplier onboarding process stalled. Critical vendor relationships at risk.",
     "affected_users": "200 suppliers and 25 procurement staff",
-    "affected_system": "Downstream: Procurement System, Vendor Management, Contract Processing. Upstream: File Storage Service, Upload Handler, Virus Scanner"
+    "affected_system": "Downstream: Procurement System, Vendor Management, Contract Processing. Upstream: File Storage Service, Upload Handler, Virus Scanner",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC022",
+    "incident_no": "INC1965282",
     "description": "Gift card balance checking service returning incorrect remaining amounts",
     "priority": "P2",
     "created_on": "2025-08-06 16:40:35",
@@ -239,10 +260,11 @@
     "status": "Open",
     "impact": "Customer confusion at checkout, increased support calls about billing. Potential legal issues with gift card regulations.",
     "affected_users": "5,000 daily gift card users",
-    "affected_system": "Downstream: Checkout Process, Customer Service Portal, Gift Card Website. Upstream: Gift Card Database, Balance Calculation Service, Payment Gateway"
+    "affected_system": "Downstream: Checkout Process, Customer Service Portal, Gift Card Website. Upstream: Gift Card Database, Balance Calculation Service, Payment Gateway",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC023",
+    "incident_no": "INC1965283",
     "description": "SEO sitemap generation failing causing search engine indexing issues",
     "priority": "P2",
     "created_on": "2025-08-06 17:05:51",
@@ -250,10 +272,11 @@
     "status": "Open",
     "impact": "Organic search traffic down 25%, new products not appearing in Google search results. Long-term revenue impact estimated at $500,000.",
     "affected_users": "All potential customers using search engines",
-    "affected_system": "Downstream: Search Engine Results, Website Traffic, Product Discovery. Upstream: Sitemap Generator, Product Database, SEO Service"
+    "affected_system": "Downstream: Search Engine Results, Website Traffic, Product Discovery. Upstream: Sitemap Generator, Product Database, SEO Service",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC024",
+    "incident_no": "INC1965284",
     "description": "Loyalty points expiration job running multiple times causing incorrect point deductions",
     "priority": "P2",
     "created_on": "2025-08-06 17:30:07",
@@ -261,10 +284,11 @@
     "status": "Open",
     "impact": "VIP customers losing points incorrectly, loyalty program complaints increased by 300%. Brand reputation at risk.",
     "affected_users": "50,000 loyalty program members",
-    "affected_system": "Downstream: Loyalty Portal, Customer Accounts, Rewards Program. Upstream: Points Engine, Scheduler Service, Customer Database"
+    "affected_system": "Downstream: Loyalty Portal, Customer Accounts, Rewards Program. Upstream: Points Engine, Scheduler Service, Customer Database",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC025",
+    "incident_no": "INC1965285",
     "description": "A/B testing framework not tracking conversions properly for mobile users",
     "priority": "P2",
     "created_on": "2025-08-06 18:00:23",
@@ -272,10 +296,11 @@
     "status": "Open",
     "impact": "Marketing experiments yielding invalid results, poor UX decisions being made. $75,000 campaign budget at risk.",
     "affected_users": "100,000 mobile website visitors",
-    "affected_system": "Downstream: Analytics Dashboard, Marketing Reports, UX Testing. Upstream: Tracking Service, Mobile Analytics, Experiment Engine"
+    "affected_system": "Downstream: Analytics Dashboard, Marketing Reports, UX Testing. Upstream: Tracking Service, Mobile Analytics, Experiment Engine",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC026",
+    "incident_no": "INC1965286",
     "description": "Return merchandise authorization system creating duplicate RMA numbers",
     "priority": "P2",
     "created_on": "2025-08-06 18:25:39",
@@ -283,10 +308,11 @@
     "status": "Open",
     "impact": "Warehouse confusion with duplicate returns, customer service unable to track returns properly. Processing delays of 3-5 days.",
     "affected_users": "1,000 daily return requests",
-    "affected_system": "Downstream: Returns Portal, Warehouse System, Customer Service. Upstream: RMA Generator, Order Database, Inventory Integration"
+    "affected_system": "Downstream: Returns Portal, Warehouse System, Customer Service. Upstream: RMA Generator, Order Database, Inventory Integration",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC027",
+    "incident_no": "INC1965287",
     "description": "Subscription billing retry logic failing causing premature cancellations",
     "priority": "P2",
     "created_on": "2025-08-06 18:50:55",
@@ -294,10 +320,11 @@
     "status": "Open",
     "impact": "Unnecessary customer churn, lost recurring revenue of $10,000 per day. Customer complaints about wrongful cancellations.",
     "affected_users": "2,000 subscription customers",
-    "affected_system": "Downstream: Subscription Management, Customer Portal, Payment Processing. Upstream: Billing Engine, Payment Gateway, Retry Scheduler"
+    "affected_system": "Downstream: Subscription Management, Customer Portal, Payment Processing. Upstream: Billing Engine, Payment Gateway, Retry Scheduler",
+    "mim_eligibility_status": "accepted"
   },
   {
-    "incident_no": "INC028",
+    "incident_no": "INC1965288",
     "description": "Product recommendation engine returning irrelevant suggestions for new users",
     "priority": "P2",
     "created_on": "2025-08-06 19:15:11",
@@ -305,10 +332,11 @@
     "status": "Open",
     "impact": "New user conversion rate down 20%, poor first impression affecting customer lifetime value. Cross-sell revenue impact of $30,000.",
     "affected_users": "10,000 new daily users",
-    "affected_system": "Downstream: Product Pages, Email Campaigns, Homepage. Upstream: ML Recommendation Service, User Profile Service, Product Catalog"
+    "affected_system": "Downstream: Product Pages, Email Campaigns, Homepage. Upstream: ML Recommendation Service, User Profile Service, Product Catalog",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC029",
+    "incident_no": "INC1965289",
     "description": "Multi-currency pricing display showing incorrect exchange rates for EUR transactions",
     "priority": "P2",
     "created_on": "2025-08-06 19:40:27",
@@ -316,10 +344,11 @@
     "status": "Open",
     "impact": "European customers seeing wrong prices, potential legal issues with pricing regulations. Cart abandonment increased by 25%.",
     "affected_users": "15,000 European customers",
-    "affected_system": "Downstream: Product Pricing, Checkout Process, Order Summary. Upstream: Exchange Rate Service, Pricing Engine, Currency Database"
+    "affected_system": "Downstream: Product Pricing, Checkout Process, Order Summary. Upstream: Exchange Rate Service, Pricing Engine, Currency Database",
+    "mim_eligibility_status": "open"
   },
   {
-    "incident_no": "INC030",
+    "incident_no": "INC1965290",
     "description": "Customer wishlist synchronization failing between web and mobile platforms",
     "priority": "P2",
     "created_on": "2025-08-06 20:05:43",
@@ -327,6 +356,7 @@
     "status": "Open",
     "impact": "Poor user experience with inconsistent wishlists, reduced customer engagement. Holiday shopping season preparation affected.",
     "affected_users": "75,000 users with wishlists",
-    "affected_system": "Downstream: Web Wishlist, Mobile App, Email Reminders. Upstream: Wishlist Service, User Account Database, Sync Engine"
+    "affected_system": "Downstream: Web Wishlist, Mobile App, Email Reminders. Upstream: Wishlist Service, User Account Database, Sync Engine",
+    "mim_eligibility_status": "open"
   }
 ]

@@ -36,6 +36,7 @@ const getSeverityColor = (isCritical, countdown) => {
   return 'info';
 };
 
+
 const P1IncidentCard = ({ incident, onStatusUpdate, onAssign }) => {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -73,24 +74,19 @@ const P1IncidentCard = ({ incident, onStatusUpdate, onAssign }) => {
 
   const handleCriticalAlert = () => {
     const subject = `🚨 CRITICAL P1 ALERT: ${incident.incident_no}`;
-    const body = `IMMEDIATE ESCALATION REQUIRED
-    
-⚠️ CRITICAL P1 INCIDENT DETECTED ⚠️
+    // Use plain text summary instead of full HTML content for mailto body
+    const plainTextBody = 
+      `Please review the following incident information:\n\n` +
+      `Incident No: ${incident.incident_no}\n` +
+      `Status: ${incident.status || 'OPEN'}\n` +
+      `Age: ${timeElapsed}\n` +
+      `SLA Status: ${countdown}\n` +
+      `Reporter: ${incident.created_by}\n` +
+      `Created: ${incident.created_on}\n` +
+      `Description: ${incident.description}\n\n` +
+      `This email was sent automatically. Please do not reply.`;
 
-Incident: ${incident.incident_no}
-Status: ${incident.status || 'OPEN'}
-Age: ${timeElapsed}
-SLA: ${countdown}
-Description: ${incident.description}
-Reporter: ${incident.created_by}
-Created: ${incident.created_on}
-
-ACTION REQUIRED:
-1. Acknowledge immediately
-2. Assign to senior engineer
-3. Begin incident response protocol
-4. Update stakeholders every 30 minutes`;
-    const mailtoLink = `mailto:incident-response@oup.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoLink = `mailto:incident-response@oup.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(plainTextBody)}`;
     window.open(mailtoLink, '_blank');
   };
 

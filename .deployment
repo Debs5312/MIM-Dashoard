@@ -1,0 +1,6 @@
+[config]
+SCM_DO_BUILD_DURING_DEPLOYMENT=true
+
+# Exclude Backend-Test folder from deployment
+[deployment]
+exclude = Backend-Test/**/*

@@ -1,36 +1,43 @@
-# MIM-Dashboard
+# Azure MIM Dashboard
 
-**Major Incident Management Dashboard** - A comprehensive web application for managing and tracking major incidents across enterprise applications. This dashboard provides teams with tools to handle incident triage, priority classification, and real-time incident monitoring.
+**Major Incident Management Dashboard** - A comprehensive web application for managing and tracking major incidents across enterprise applications. Built with React frontend and Node.js backend, deployed on Azure App Service.
 
 ## 🚀 Features
 
-- **Real-time Incident Management**: Create, update, and track major incidents
-- **Priority-based Classification**: Categorize incidents by P1/P2 priority levels
-- **Interactive Dashboard**: Modern React-based UI with responsive design
-- **RESTful API**: Node.js backend with Express framework
+- **Real-time Incident Management**: Create, update, and track major incidents with P1/P2 priority classification
+- **Interactive Dashboard**: Modern React-based UI with responsive design and real-time updates
+- **RESTful API**: Node.js backend with Express framework and MongoDB integration
+- **Azure Deployment**: Production-ready deployment on Azure App Service
 - **Cross-platform Support**: CORS enabled for seamless frontend-backend integration
-- **Logging & Monitoring**: Built-in request logging and middleware support
+- **Comprehensive Testing**: Backend test suite with multiple test datasets
+- **Production Build**: Optimized build output in wwwroot for Azure deployment
 
 ## 🏗️ Architecture
 
-### Frontend (MIM-DashBoard UI)
-- **Framework**: React 19 with Vite build tool
+### Frontend (`MIM-DashBoard UI/`)
+- **Framework**: React with Vite build tool
 - **State Management**: MobX for reactive state management
-- **Styling**: CSS modules with responsive design
+- **Styling**: CSS modules and global styles
 - **HTTP Client**: Axios for API communication
-- **Development Server**: Vite dev server with hot reload
+- **Build Output**: Production build in `wwwroot/` directory
 
-### Backend (BackEnd)
+### Backend (`BackEnd/`)
 - **Runtime**: Node.js with Express.js framework
 - **Architecture**: RESTful API with middleware pattern
+- **Data Storage**: JSON file-based storage (incident.json)
 - **CORS**: Enabled for cross-origin requests
-- **Logging**: Custom middleware for request logging
-- **Port**: 3000 (configurable)
+- **Port**: Configured for Azure App Service
+
+### Testing (`Backend-Test/`)
+- **Test Framework**: Custom test suite
+- **Test Data**: Multiple test datasets for different scenarios
+- **Coverage**: Edge cases, large datasets, and priority-based incidents
 
 ## 📋 Prerequisites
 
 - **Node.js**: v14 or higher
 - **npm**: Comes with Node.js
+- **Azure CLI**: For deployment (optional)
 - **Modern Browser**: Chrome, Firefox, Safari, or Edge
 
 ## 🛠️ Installation & Setup
@@ -38,96 +45,95 @@
 ### 1. Clone the Repository
 ```bash
 git clone [repository-url]
-cd MIM-Dashboard
+cd Azure-MIM-Dashboard
 ```
 
-### 2. Backend Setup
+### 2. Install Dependencies
 ```bash
-# Navigate to backend directory
-cd BackEnd
-
-# Install dependencies
 npm install
+```
 
-# Start the server
+### 3. Start the Application (Common Entry Point)
+```bash
 npm start
 # or
 node server.js
 ```
 
-The backend server will start on `http://localhost:3000`
+The application will start on `http://localhost:3000` with:
+- **Frontend**: Served from `wwwroot/` directory
+- **Backend API**: Available at `/api` endpoint
+- **Unified Server**: Single server.js file handles both frontend and backend
 
-### 3. Frontend Setup
+### 4. Alternative Development Setup
+For separate development of frontend and backend:
+
+**Backend Development:**
 ```bash
-# Navigate to frontend directory
-cd MIM-DashBoard UI
-
-# Install dependencies
+cd BackEnd
 npm install
+npm start
+```
 
-# Start development server
+**Frontend Development:**
+```bash
+cd "MIM-DashBoard UI"
+npm install
 npm run dev
 ```
 
-The frontend will start on `http://localhost:5173` (default Vite port)
-
-## 🔌 API Endpoints
-
-### Base URL
+### 5. Production Build
+```bash
+cd "MIM-DashBoard UI"
+npm run build
 ```
-http://localhost:3000/incident
-```
-
-### Available Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/` | Get all incidents |
-| GET | `/p1` | Get P1 priority incidents |
-| GET | `/p2` | Get P2 priority incidents |
-| GET | `/p1/list` | Get P1 incidents list |
-| GET | `/p2/list` | Get P2 incidents list |
-
-### Sample API Response
-```json
-[
-  {
-    "incidentId": "INC001",
-    "priority": "P1",
-    "status": "Open",
-    "description": "Critical system outage",
-    "createdAt": "2024-01-15T10:30:00Z"
-  }
-]
-```
-
-## 🎯 Usage
-
-1. **Start the Backend**: Ensure the Node.js server is running on port 3000
-2. **Launch Frontend**: Open the React application in your browser
-3. **View Incidents**: The dashboard displays all incidents with priority filtering
-4. **Monitor Status**: Real-time updates for incident status and priority changes
+The production build will be generated in the `wwwroot/` directory.
 
 ## 📁 Project Structure
 
 ```
-MIM-Dashboard/
-├── BackEnd/                 # Node.js backend
-│   ├── controllers/         # API controllers
-│   ├── middleware/          # Custom middleware
-│   ├── models/              # Data models
-│   ├── routes/              # API routes
-│   ├── Data/                # Sample data
-│   └── server.js            # Server entry point
-├── MIM-DashBoard UI/        # React frontend
+Azure-MIM-Dashboard/
+├── BackEnd/                    # Node.js backend
+│   ├── controllers/           # API controllers
+│   ├── middleware/            # Custom middleware
+│   ├── models/                # Data models
+│   ├── routes/                # API routes
+│   ├── Data/                  # JSON data files
+│   │   └── incident.json      # Incident data storage
+│   ├── log/                   # Log files
+│   └── index.js              # Backend entry point
+├── Backend-Test/              # Backend test suite
+│   ├── test.js               # Main test file
+│   └── Test-data/            # Test datasets
+│       ├── test-incidents-edge-cases.json
+│       ├── test-incidents-large-dataset.json
+│       ├── test-incidents-mixed.json
+│       ├── test-incidents-p1.json
+│       └── test-incidents-p2.json
+├── MIM-DashBoard UI/         # React frontend
 │   ├── src/
-│   │   ├── components/      # React components
+│   │   ├── components/       # React components
 │   │   ├── services/        # API services
-│   │   ├── models/          # Frontend models
 │   │   └── stores/          # State management
-│   └── public/              # Static assets
-├── Backend-Test/            # Backend tests
+│   ├── public/              # Static assets
+│   └── package.json
+├── wwwroot/                  # Production build output
+│   ├── index.html
+│   ├── assets/
+│   └── oup.png
+├── package.json              # Root package.json
+├── server.js                # Main server file
+├── .deployment             # Azure deployment configuration
+├── .gitignore
+├── 404.html                # Custom 404 page
 └── README.md               # This file
+```
+
+## 🔌 API Endpoints
+
+### Backend Base URL
+```
+https://[your-app-service].azurewebsites.net/incident
 ```
 
 ## 🧪 Testing
@@ -139,18 +145,39 @@ npm install
 npm test
 ```
 
+### Test Datasets
+- **Edge Cases**: Test boundary conditions and error handling
+- **Large Dataset**: Performance testing with bulk data
+- **Mixed Data**: Various incident types and priorities
+- **P1/P2 Priority**: Priority-specific test cases
+
+## 🚀 Azure Deployment
+
+### Deployment Steps
+1. **Azure App Service**: Deploy backend to Azure App Service
+2. **Static Files**: Serve frontend from wwwroot directory
+3. **Environment Variables**: Configure in Azure App Service settings
+4. **Custom Domain**: Optional custom domain configuration
+
+### Azure Configuration
+- **Runtime Stack**: Node.js
+- **Startup Command**: `node server.js`
+- **Port**: Process.env.PORT (Azure sets this automatically)
+
 ## 🛡️ Security Features
 
 - CORS middleware for cross-origin requests
 - Request logging for audit trails
 - Input validation ready (extendable)
+- Azure App Service security features
 
 ## 🚦 Development Workflow
 
 1. **Backend Changes**: Modify files in `BackEnd/` directory
 2. **Frontend Changes**: Modify files in `MIM-DashBoard UI/` directory
 3. **Testing**: Run backend tests before deployment
-4. **Deployment**: Build frontend with `npm run build`
+4. **Build**: Create production build with `npm run build`
+5. **Deploy**: Deploy to Azure App Service
 
 ## 🤝 Contributing
 
@@ -169,3 +196,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 🆘 Support
 
 For support, please open an issue in the GitHub repository or contact the development team.
+
+## 📞 Contact
+
+- **Project**: Azure MIM Dashboard
+- **Repository**: [GitHub Repository URL]
+- **Issues**: [GitHub Issues URL]

@@ -37,7 +37,7 @@ const AppContent = observer(() => {
   const {
     p1Incidents,
     p2Incidents,
-    allIncidents,
+    mimIncidents,
     loading,
     p1Loading,
     p2Loading,
@@ -200,19 +200,19 @@ const AppContent = observer(() => {
           <Paper elevation={3} sx={{ p: 2, height: '400px', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 2 }}>
               <Box sx={{ flex: 1, minWidth: 0 }}>
-                <SearchAllIncident incidents={allIncidents} onSearchResults={handleAllSearchResults} />
+                <SearchAllIncident incidents={mimIncidents} onSearchResults={handleAllSearchResults} />
               </Box>
               <Chip 
-                label={`${search.all.term ? search.all.filtered.length : allIncidents.length}`} 
+                label={`${search.all.term ? search.all.filtered.length : mimIncidents.length}`} 
                 color="primary" 
                 size="small"
                 sx={{ fontWeight: 'bold' }}
               />
             </Box>
-            {(search.all.term ? search.all.filtered : allIncidents).length > 0 ? (
+            {(search.all.term ? search.all.filtered : mimIncidents).length > 0 ? (
               <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }}>
                 <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2 }}>
-                  {(search.all.term ? search.all.filtered : allIncidents).map(incident => (
+                  {(search.all.term ? search.all.filtered : mimIncidents).map(incident => (
                     <Box key={incident.incident_no}>
                       <IncidentCard incident={incident} />
                     </Box>

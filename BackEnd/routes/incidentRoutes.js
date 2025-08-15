@@ -1,20 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const incidentController = require('../controllers/incidentController');
 
-const {
-  getAllIncidents,
-  getIncidentsByPriority,
-  getIncidentsListByPriority,
-} = require('../controllers/incidentController');
+// GET all incidents
+router.get('/', incidentController.getAllIncidents);
 
-router.get('/', getAllIncidents);
+// GET P1 incidents
+router.get('/p1/list', incidentController.getIncidentsListByPriority('P1'));
 
-router.get('/p1', (req, res) => getIncidentsByPriority('P1')(req, res));
+// GET P2 incidents
+router.get('/p2/list', incidentController.getIncidentsListByPriority('P2'));
 
-router.get('/p2', (req, res) => getIncidentsByPriority('P2')(req, res));
-
-router.get('/p2/list', (req, res) => getIncidentsListByPriority('P2')(req, res));
-
-router.get('/p1/list', (req, res) => getIncidentsListByPriority('P1')(req, res));
+// PUT update incident status
+router.put('/:incident_no/status/:mim_eligibility_status', incidentController.updateIncidentStatus);
 
 module.exports = router;
