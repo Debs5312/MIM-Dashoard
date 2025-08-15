@@ -4,9 +4,9 @@
   "description": "Test suite for Azure MIM Dashboard backend API",
   "main": "test.js",
   "scripts": {
-    "test": "node test.js",
-    "test:watch": "nodemon test.js",
-    "test:verbose": "node test.js --verbose"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:verbose": "jest --verbose"
   },
   "keywords": [
     "azure",
@@ -22,9 +22,11 @@
     "axios": "^1.6.0",
     "chalk": "^4.1.2",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "supertest": "^7.1.4"
   },
   "devDependencies": {
+    "jest": "^30.0.5",
     "nodemon": "^3.0.1"
   },
   "engines": {
